@@ -1,0 +1,72 @@
+﻿@model Homework_Trips.ViewModels.TripDetailsViewModel
+
+@{
+	ViewData["Title"] = "TripDetailsView";
+}
+
+<h1>Informacje o wycieczce</h1>
+
+<div>
+	<h4 class="text-center">@Model.Title</h4>
+	<hr />
+
+
+	<div class="row">
+		<div class="col-md-8">
+			<dl class="d-flex flex-column w-100" style="overflow-wrap: break-word">
+
+				<div class="d-flex flex gap-1">
+					<dt>Data</dt>
+					<dd>@Model.Date</dd>
+				</div>
+
+				<div class="d-flex flex gap-1">
+					<dt>Opis</dt>
+					<dd style="max-width: 75%">@Model.Description</dd>
+				</div>
+
+				<div class="d-flex flex gap-1 flex-column">
+					<dt>Atrakcje</dt>
+					<dd>
+						<ul>
+							@foreach (var poi in Model.PointsOfIntrest)
+							{
+								<li>@poi</li>
+							}
+						</ul>
+					</dd>
+				</div>
+
+				<div class="d-flex flex gap-1">
+					<dt>Wolne miejsca</dt>
+					<dd>@(Model.GroupSize - Model.Reservations)</dd>
+				</div>
+
+				<div class="w-75 m-auto">
+					<div class="progress" style="height: 2em">
+						<div class="progress-bar" role="progressbar" aria-valuenow="@Model.Reservations" aria-valuemin="0" aria-valuemax="@Model.GroupSize" style="width:@(Model.PercentReserved)%">
+							@Model.Reservations
+						</div>
+					</div>
+				</div>
+
+				<div class="d-flex flex gap-1">
+					<dt>Cena</dt>
+					<dd>@(Model.Price) zł</dd>
+				</div>
+			</dl>
+		</div>
+
+		<div class="col-md-4">
+			<div class="w-100">
+				<img src="@Model.ImagePath" class="border-0 rounded shadow" alt="Obraz" style="max-height: 100%; max-width: 100%;" />
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+<div>
+	<a asp-action="Index" class="btn btn-outline-info">Powrót</a>
+</div>

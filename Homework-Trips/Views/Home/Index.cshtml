@@ -1,0 +1,52 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@using Homework_Trips.ViewModels;
+@model IEnumerable<TripDetailsViewModel>;
+
+<div class="text-center d-flex flex-row gap-1 flex-wrap justify-content-around">
+
+	@foreach (var trip in Model)
+	{
+
+		<div class="card shadow m-4" style="width: 24rem;">
+			
+			<div class="overflow-hidden" style="max-height: 12em;">
+				<img src="@trip.ImagePath" class="border-0 rounded shadow card-img-top" alt="Obraz"/>
+			</div>
+
+			<div class="card-body">
+				<h5 class="card-title">@trip.Title</h5>
+				<hr />
+
+				<div class="text-start">
+					<p class="overflow-hidden p-1" style="height: 8em; text-overflow:ellipsis">
+						@trip.Description
+					</p>
+				</div>
+
+				<div class="progress" style="height: 2em">
+					<div class="progress-bar" role="progressbar" aria-valuenow="@trip.Reservations" aria-valuemin="0" aria-valuemax="@trip.GroupSize" style="width:@(trip.PercentReserved)%">
+						@trip.Reservations
+					</div>
+				</div>
+
+				<div class="text-start">
+					<p class="mt-1">
+						Cena: @trip.Price zł
+					</p>
+				</div>
+
+				<div class="card-footer bg-transparent align-self-end">
+					<a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id" class="btn btn-outline-primary m-2">
+						Zobacz więcej
+					</a>
+				</div>
+
+			</div>
+		</div>
+
+
+	}
+
+</div>

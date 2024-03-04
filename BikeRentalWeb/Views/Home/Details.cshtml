@@ -1,0 +1,14 @@
+﻿@using BikeRentalWeb.ViewModels
+@model BikeDetailsViewModel
+
+<div>
+	<div class="card shadow mt-4" style="width: 24rem;">
+		<div class="card-body">
+			<h5 class="card-title">@Model.Producer - @Model.Model</h5>
+			<hr />
+			<p>Type: @Model.BikeType</p>
+			<p>Color: @Model.Color</p>
+			<p>Number of gears: @Model.NumberOfGears</p>
+		</div>
+	</div>
+</div>

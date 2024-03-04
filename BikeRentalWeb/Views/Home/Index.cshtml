@@ -1,0 +1,25 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@using BikeRentalWeb.ViewModels
+@model IEnumerable<BikeDetailsViewModel>
+
+<div class="text-center d-flex justify-content-center">
+
+	<div>
+		<h1>UBB Bike Rental System</h1>
+		<p>Lorem</p>
+	</div>
+
+	<ul>
+		@foreach (var bike in Model)
+		{
+			<li>
+				<a asp-controller="Home" asp-action="Details" asp-route-id="@bike.Id">
+					@bike.Producer - @bike.Model
+				</a>
+			</li>
+		}
+	</ul>
+
+</div>
