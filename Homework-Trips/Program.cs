@@ -1,13 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using Trips.DAL.Data;
 using Trips.DAL.Interfaces;
-using Trips.DAL.Services;
-using Serilog;
-using Serilog.Events;
-using ILogger = Serilog.ILogger;
-using Homework_Trips.Data;
-using Trips.DAL.Models;
-using Trips.DAL.Repositories;
+using Homework_Trips.Infrastructure;
 
 namespace Homework_Trips
 {
@@ -16,33 +8,16 @@ namespace Homework_Trips
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-			builder.Services.AddDbContext<Homework_TripsContext>(options =>
-			    options.UseNpgsql(builder.Configuration.GetConnectionString("Homework_TripsContext") ?? throw new InvalidOperationException("Connection string 'Homework_TripsContext' not found.")));
+
+
+            builder
+                .AddDbContext()
+                .AddRepositories()
+                .AddLogger()
+                .AddSeeder();
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-
-			builder.Services.AddDbContext<TripContext>(options =>
-			{
-				var connection = builder.Configuration.GetConnectionString("postgres");
-				options.UseNpgsql(connection, b =>
-				{
-					b.MigrationsAssembly("Homework-Trips");
-				});
-				
-			});
-
-			builder.Services.AddScoped<ISeeder, Seeder>();
-
-			builder.Services.AddSingleton<ILogger>(x => new LoggerConfiguration()
-				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-				.MinimumLevel.Information()
-				.Enrich.FromLogContext()
-				.WriteTo.Console()
-				.WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
-				.CreateLogger());
-
-			builder.Services.AddScoped<IRepository<City>, CityRepository>();
 
 			var app = builder.Build();
 
