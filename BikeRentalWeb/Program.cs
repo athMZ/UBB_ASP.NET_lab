@@ -1,3 +1,6 @@
+using BikeRentalWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BikeRentalWeb
 {
     public class Program
@@ -8,6 +11,11 @@ namespace BikeRentalWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<BikeRentalDbContext>(options =>
+            {
+				options.UseNpgsql(builder.Configuration.GetConnectionString("postgres"));
+			});
 
             var app = builder.Build();
 

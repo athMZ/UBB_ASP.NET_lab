@@ -1,0 +1,34 @@
+name: asp_lab_docker
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ASP_LAB
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "9000:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.pl
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+  fileServer:
+    image: halverneus/static-file-server
+    restart: always
+    ports:
+      - "2024:8080"
+    volumes:
+      - ./serverFiles:/web
+    environment:
+        CORS: true
+        ALLOW_INDEX: true  
+  

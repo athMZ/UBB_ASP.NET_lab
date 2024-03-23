@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Trips.DAL.Models.City">
+    <Position X="4" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgACAAAAAAAAQAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.Country">
+    <Position X="4" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.Customer">
+    <Position X="6.25" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.Photo">
+    <Position X="2" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Models\Photo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.PointOfIntrest">
+    <Position X="2" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgACAIAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PointOfIntrest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.Reservation">
+    <Position X="4" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\Reservation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Models.Trip">
+    <Position X="6.25" Y="2.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAgACAAEgAAAAQgAABAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Trip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Services.Seeder">
+    <Position X="12.5" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAAAIADEAAEEAABQACIABAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Services\Seeder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Interface Name="Trips.DAL.Interfaces.ISeeder">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISeeder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
