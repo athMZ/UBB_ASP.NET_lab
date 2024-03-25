@@ -7,5 +7,6 @@
 		public string? Description { get; set; }
 		public Photo? Photo { get; set; }
 		public required Country Country { get; set; }
+		public required int CountryId { get; set; }
 	}
 }

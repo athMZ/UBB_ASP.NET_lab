@@ -13,19 +13,19 @@ namespace Trips.DAL.Services
 
 		private static readonly Country[] Countries =
 		[
-			new Country { Name = "Polska" },
-			new Country { Name = "Francja" },
-			new Country { Name = "Niemcy" },
-			new Country { Name = "Włochy" }
+			new Country {Name = "Polska" },
+			new Country {Name = "Francja" },
+			new Country {Name = "Niemcy" },
+			new Country {Name = "Włochy" }
 		];
 
 		private static readonly City[] Cities =
 		[
-			new City { Name = "Kraków", Country = Countries[0]},
-			new City { Name = "Gdańsk", Country = Countries[0] },
-			new City { Name = "Warszawa", Country = Countries[0]},
-			new City { Name = "Paryż", Country = Countries[1]},
-			new City { Name = "Berlin", Country = Countries[2]}
+			new City { Name = "Kraków", Country = Countries[0], CountryId = Countries[0].Id},
+			new City { Name = "Gdańsk", Country = Countries[0] , CountryId = Countries[0].Id},
+			new City { Name = "Warszawa", Country = Countries[0],CountryId = Countries[0].Id},
+			new City { Name = "Paryż", Country = Countries[1], CountryId = Countries[1].Id},
+			new City { Name = "Berlin", Country = Countries[2], CountryId = Countries[2].Id}
 		];
 
 		private static readonly PointOfIntrest[] PointsOfIntrest =

@@ -1,4 +1,5 @@
-﻿using Trips.DAL.Data;
+﻿using AutoMapper;
+using Trips.DAL.Data;
 using Trips.DAL.Interfaces;
 
 namespace Trips.DAL.Repositories
@@ -6,8 +7,13 @@ namespace Trips.DAL.Repositories
 	public abstract class ARepository<TEntity> : IRepository<TEntity> where TEntity : class
 	{
 		protected readonly TripContext Context;
+		protected readonly IMapper Mapper;
 
-		private protected ARepository(TripContext context) => Context = context;
+		private protected ARepository(TripContext context, IMapper mapper)
+		{
+			Context = context;
+			Mapper = mapper;
+		}
 
 		public abstract IEnumerable<TEntity> GetAll();
 

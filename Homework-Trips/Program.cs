@@ -13,8 +13,10 @@ namespace Homework_Trips
             builder
                 .AddDbContext()
                 .AddRepositories()
+                .AddServices()
                 .AddLogger()
-                .AddSeeder();
+                .AddSeeder()
+                .AddAutoMapper();
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();

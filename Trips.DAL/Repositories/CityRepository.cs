@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Trips.DAL.Data;
 using Trips.DAL.Models;
 
@@ -6,13 +7,19 @@ namespace Trips.DAL.Repositories
 {
 	public class CityRepository : ARepository<City>
 	{
-		public CityRepository(TripContext context) : base(context) { }
+		public CityRepository(TripContext context, IMapper mapper) : base(context, mapper) { }
 
-		public override IEnumerable<City> GetAll() => Context.Cities;
+		public override IEnumerable<City> GetAll()
+		{
+			return Context.Cities
+				.AsNoTracking()
+				.Include(city => city.Country);
+		}
 
 		public override City? GetById(int id)
 		{
 			var cityWithCountry = Context.Cities
+				.AsNoTracking()
 				.Include(city => city.Country)
 				.FirstOrDefault(city => city.Id == id);
 
@@ -26,6 +33,13 @@ namespace Trips.DAL.Repositories
 			if (Context.Cities.Any(c => c.Id == entity.Id))
 				throw new InvalidOperationException("City with the same ID already exists.");
 
+			var country = Context.Countries.SingleOrDefault(c => c.Id == entity.Country.Id);
+			if (country == null)
+				throw new InvalidOperationException("Country not found.");
+
+			entity.Country.Id = country.Id;
+			entity.Country = null;
+
 			Context.Cities.Add(entity);
 		}
 
@@ -37,7 +51,12 @@ namespace Trips.DAL.Repositories
 			if (city == null)
 				throw new InvalidOperationException("City not found.");
 
-			Context.Entry(city).CurrentValues.SetValues(entity);
+			Context.Cities.Update(city);
+
+			city.Name = entity.Name;
+			city.CountryId = entity.CountryId;
+			city.Description = entity.Description;
+			city.Photo = entity.Photo;
 		}
 
 		public override void Delete(int id)

@@ -21,15 +21,25 @@ namespace Homework_Trips.Infrastructure
                 {
                     b.MigrationsAssembly("Homework-Trips");
                 });
-				
+
             });
             return builder;
         }
 
         public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IRepository<City>, CityRepository>();
+            builder.Services
+                .AddScoped<IRepository<City>, CityRepository>()
+                .AddScoped<IRepository<Country>, CountryRepository>();
             return builder;
+        }
+
+        public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+        {
+	        builder.Services
+		        .AddScoped<ICountryService, CountryService>()
+		        .AddScoped<ICityService, CityService>();
+	        return builder;
         }
 
         public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
@@ -47,6 +57,12 @@ namespace Homework_Trips.Infrastructure
                 .WriteTo.Console()
                 .WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger());
+            return builder;
+        }
+
+        public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return builder;
         }
     }

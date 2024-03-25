@@ -1,45 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Trips.DAL.DTOs;
 using Trips.DAL.Interfaces;
-using Trips.DAL.Models;
-using ILogger = Serilog.ILogger;
-
 
 namespace Homework_Trips.Controllers
 {
 	public class CitiesController : Controller
 	{
-		private readonly IRepository<City> _repository;
-		private readonly ILogger _logger;
+		private readonly ICityService _cityService;
+		private readonly ICountryService _countryService;
 
-		public CitiesController(IRepository<City> repository, ILogger logger)
+		public CitiesController(ICityService cityService, ICountryService countryService)
 		{
-			_repository = repository;
-			_logger = logger;
+			_cityService = cityService;
+			_countryService = countryService;
 		}
 
 		// GET: Cities
 		public async Task<IActionResult> Index()
 		{
-			var cities = _repository.GetAll();
-			return View(cities);
+			var result = _cityService.GetAllDto();
+			return View(result);
 		}
 
 		// GET: Cities/Details/5
 		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null)
-			{
 				return NotFound();
-			}
 
-			var city = _repository.GetById(id.Value);
-			return View(city);
+			var result = _cityService.GetByIdDto(id.Value);
+			return View(result);
 		}
 
 		// GET: Cities/Create
 		public IActionResult Create()
 		{
+			SetCountriesViewBag();
 			return View();
 		}
 
@@ -48,12 +45,13 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("Id,Name,Description")] City city)
+		public async Task<IActionResult> Create(CityDto cityDto)
 		{
-			if (!ModelState.IsValid) return View(city);
+			if (!ModelState.IsValid) return View(cityDto);
 
-			_repository.Insert(city);
-			_repository.Save();
+			var countryDto = _countryService.GetByIdDto(cityDto.CountryId);
+			_cityService.InsertCity(cityDto, countryDto);
+
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -63,8 +61,10 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var city = _repository.GetById(id.Value);
-			return View(city);
+			var result = _cityService.GetByIdDto(id.Value);
+
+			SetCountriesViewBag();
+			return View(result);
 		}
 
 		// POST: Cities/Edit/5
@@ -72,24 +72,26 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] City city)
+		public async Task<IActionResult> Edit(int id, CityDto cityDto)
 		{
-			if (id != city.Id)
+			if (id != cityDto.Id)
 				return NotFound();
-			
-/*			var cityEntity = _repository.GetById(id);
-			city.Country = cityEntity?.Country;*/
 
-			if (!ModelState.IsValid) return View(city);
+			if (!ModelState.IsValid)
+			{
+				SetCountriesViewBag();
+				return View(cityDto);
+			}
+
+			var countryDto = _countryService.GetByIdDto(cityDto.CountryId);
 
 			try
 			{
-				_repository.Update(city);
-				_repository.Save();
+				_cityService.UpdateCity(cityDto, countryDto);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!CityExists(city.Id))
+				if (!CityExists(cityDto.Id))
 					return NotFound();
 				throw;
 			}
@@ -102,8 +104,9 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var city = _repository.GetById(id.Value);
-			return View(city);
+			var result = _cityService.GetByIdDto(id.Value);
+
+			return View(result);
 		}
 
 		// POST: Cities/Delete/5
@@ -111,15 +114,17 @@ namespace Homework_Trips.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			_repository.Delete(id);
-			_repository.Save();
-
+			_cityService.Delete(id);
 			return RedirectToAction(nameof(Index));
 		}
 
 		private bool CityExists(int id)
 		{
-			return _repository.Exists(id);
+			return _cityService.Exists(id);
+		}
+		private void SetCountriesViewBag()
+		{
+			ViewBag.CountryList = _countryService.GetAllDto();
 		}
 	}
 }
