@@ -22,11 +22,11 @@ namespace Homework_Trips.Infrastructure
 				.ForMember(dest => dest.Country,
 					opt => opt.MapFrom( src=>new Country{Id = src.CountryId, Name = ""}));
 
-			CreateMap<City, City>();
-
 			CreateMap<Country, CountryDto>();
 			CreateMap<CountryDto, Country>();
-			CreateMap<Country, Country>();
+
+			CreateMap<Customer, CustomerDto>();
+			CreateMap<CustomerDto, Customer>();
 		}
 	}
 }

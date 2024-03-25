@@ -28,9 +28,10 @@ namespace Homework_Trips.Infrastructure
 
         public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
         {
-            builder.Services
-                .AddScoped<IRepository<City>, CityRepository>()
-                .AddScoped<IRepository<Country>, CountryRepository>();
+	        builder.Services
+		        .AddScoped<IRepository<City>, CityRepository>()
+		        .AddScoped<IRepository<Country>, CountryRepository>()
+		        .AddScoped<IRepository<Customer>, CustomerRepository>();
             return builder;
         }
 
@@ -38,10 +39,10 @@ namespace Homework_Trips.Infrastructure
         {
 	        builder.Services
 		        .AddScoped<ICountryService, CountryService>()
-		        .AddScoped<ICityService, CityService>();
+		        .AddScoped<ICityService, CityService>()
+		        .AddScoped<ICustomerService, CustomerService>();
 	        return builder;
         }
-
         public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<ISeeder, Seeder>();
