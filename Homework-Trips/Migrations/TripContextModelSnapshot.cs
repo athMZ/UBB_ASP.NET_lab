@@ -137,7 +137,7 @@ namespace Homework_Trips.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("PhotoId")
+                    b.Property<int>("PhotoId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("TripId")
@@ -244,7 +244,9 @@ namespace Homework_Trips.Migrations
 
                     b.HasOne("Trips.DAL.Models.Photo", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Trips.DAL.Models.Trip", null)
                         .WithMany("PointsOfIntrest")

@@ -10,61 +10,65 @@ using ILogger = Serilog.ILogger;
 
 namespace Homework_Trips.Infrastructure
 {
-    public static class ApplicationBuilderExtension
-    {
-        public static WebApplicationBuilder AddDbContext(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddDbContext<TripContext>(options =>
-            {
-                var connection = builder.Configuration.GetConnectionString("postgres");
-                options.UseNpgsql(connection, b =>
-                {
-                    b.MigrationsAssembly("Homework-Trips");
-                });
+	public static class ApplicationBuilderExtension
+	{
+		public static WebApplicationBuilder AddDbContext(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddDbContext<TripContext>(options =>
+			{
+				var connection = builder.Configuration.GetConnectionString("postgres");
+				options.UseNpgsql(connection, b =>
+				{
+					b.MigrationsAssembly("Homework-Trips");
+				});
 
-            });
-            return builder;
-        }
+			});
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
-        {
-	        builder.Services
-		        .AddScoped<IRepository<City>, CityRepository>()
-		        .AddScoped<IRepository<Country>, CountryRepository>()
-		        .AddScoped<IRepository<Customer>, CustomerRepository>();
-            return builder;
-        }
+		public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
+		{
+			builder.Services
+				.AddScoped<IRepository<City>, CityRepository>()
+				.AddScoped<IRepository<Country>, CountryRepository>()
+				.AddScoped<IRepository<Customer>, CustomerRepository>()
+				.AddScoped<IRepository<Photo>, PhotoRepository>()
+				.AddScoped<IRepository<PointOfIntrest>, PointOfInterestRepository>();
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
-        {
-	        builder.Services
-		        .AddScoped<ICountryService, CountryService>()
-		        .AddScoped<ICityService, CityService>()
-		        .AddScoped<ICustomerService, CustomerService>();
-	        return builder;
-        }
-        public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddScoped<ISeeder, Seeder>();
-            return builder;
-        }
+		public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+		{
+			builder.Services
+				.AddScoped<ICountryService, CountryService>()
+				.AddScoped<ICityService, CityService>()
+				.AddScoped<ICustomerService, CustomerService>()
+				.AddScoped<IPhotoService, PhotoService>()
+				.AddScoped<IPointOfIntrestService, PointOfIntrestService>();
+			return builder;
+		}
+		public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddScoped<ISeeder, Seeder>();
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddLogger(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddSingleton<ILogger>(x => new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Information()
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger());
-            return builder;
-        }
+		public static WebApplicationBuilder AddLogger(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddSingleton<ILogger>(x => new LoggerConfiguration()
+				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+				.MinimumLevel.Information()
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
+				.CreateLogger());
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            return builder;
-        }
-    }
+		public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			return builder;
+		}
+	}
 }

@@ -4,29 +4,38 @@ using Trips.DAL.Models;
 
 namespace Homework_Trips.Infrastructure
 {
-	public class AutoMapperProfile : Profile
-	{
-		public AutoMapperProfile()
-		{
-			CreateMap<City, CityDto>()
-				.ForMember(
-					dest => dest.CountryId,
-					opt => opt.MapFrom(src => src.Country.Id)
-				)
-				.ForMember(
-					dest=>dest.CountryName,
-					opt => opt.MapFrom(src=>src.Country.Name)
-				);
-			
-			CreateMap<CityDto, City>()
-				.ForMember(dest => dest.Country,
-					opt => opt.MapFrom( src=>new Country{Id = src.CountryId, Name = ""}));
+    public class AutoMapperProfile : Profile
+    {
+        public AutoMapperProfile()
+        {
+            CreateMap<City, CityDto>()
+                .ForMember(
+                    dest => dest.CountryId,
+                    opt => opt.MapFrom(src => src.Country.Id)
+                )
+                .ForMember(
+                    dest => dest.CountryName,
+                    opt => opt.MapFrom(src => src.Country.Name)
+                );
 
-			CreateMap<Country, CountryDto>();
-			CreateMap<CountryDto, Country>();
+            CreateMap<CityDto, City>()
+                .ForMember(dest => dest.Country,
+                    opt => opt.MapFrom(src => new Country { Id = src.CountryId, Name = "" }));
 
-			CreateMap<Customer, CustomerDto>();
-			CreateMap<CustomerDto, Customer>();
-		}
-	}
+            CreateMap<Country, CountryDto>();
+            CreateMap<CountryDto, Country>();
+
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerDto, Customer>();
+
+            CreateMap<Photo, PhotoDto>();
+            CreateMap<PhotoDto, Photo>();
+
+            CreateMap<PointOfIntrest, PointOfIntrestDto>().ForMember(
+                dest => dest.CityName,
+                opt => opt.MapFrom(src => src.City.Name)
+            ); ;
+            CreateMap<PointOfIntrestDto, PointOfIntrest>();
+        }
+    }
 }
