@@ -11,7 +11,7 @@ namespace Trips.DAL.Repositories
 		{
 		}
 
-		public override IEnumerable<Customer> GetAll()
+		public override IQueryable<Customer> GetAll()
 		{
 			return Context.Customers
 				.AsNoTracking()

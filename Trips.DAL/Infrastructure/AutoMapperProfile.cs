@@ -2,7 +2,7 @@
 using Trips.DAL.DTOs;
 using Trips.DAL.Models;
 
-namespace Homework_Trips.Infrastructure
+namespace Trips.DAL.Infrastructure
 {
     public class AutoMapperProfile : Profile
     {
@@ -36,6 +36,12 @@ namespace Homework_Trips.Infrastructure
                 opt => opt.MapFrom(src => src.City.Name)
             ); ;
             CreateMap<PointOfIntrestDto, PointOfIntrest>();
+
+            CreateMap<Reservation, ReservationDto>();
+            CreateMap<ReservationDto, Reservation>();
+
+            CreateMap<Trip, TripDto>();
+            CreateMap<TripDto, Trip>();
         }
     }
 }

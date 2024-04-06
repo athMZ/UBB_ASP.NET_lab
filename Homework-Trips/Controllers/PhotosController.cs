@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Homework_Trips.Data;
 using Trips.DAL.DTOs;
 using Trips.DAL.Interfaces;
-using Trips.DAL.Models;
-using Trips.DAL.Services;
 
 namespace Homework_Trips.Controllers
 {
@@ -20,7 +17,7 @@ namespace Homework_Trips.Controllers
 		// GET: Photos
 		public async Task<IActionResult> Index()
 		{
-			var result = _photoService.GetAllDto();
+			var result = _photoService.GetAll();
 			return View(result);
 		}
 
@@ -30,7 +27,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var photo = _photoService.GetByIdDto(id.Value);
+			var photo = _photoService.GetById(id.Value);
 			return View(photo);
 		}
 
@@ -49,7 +46,7 @@ namespace Homework_Trips.Controllers
 		{
 			if (!ModelState.IsValid) return View(photoDto);
 
-			_photoService.InsertCustomer(photoDto);
+			_photoService.Insert(photoDto);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -59,7 +56,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var result = _photoService.GetByIdDto(id.Value);
+			var result = _photoService.GetById(id.Value);
 
 			return View(result);
 		}
@@ -78,7 +75,7 @@ namespace Homework_Trips.Controllers
 
 			try
 			{
-				_photoService.UpdateCustomer(photoDto);
+				_photoService.Update(photoDto);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
@@ -98,7 +95,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var result = _photoService.GetByIdDto(id.Value);
+			var result = _photoService.GetById(id.Value);
 
 			return View(result);
 		}
@@ -116,5 +113,6 @@ namespace Homework_Trips.Controllers
 		{
 			return _photoService.Exists(id);
 		}
+
 	}
 }

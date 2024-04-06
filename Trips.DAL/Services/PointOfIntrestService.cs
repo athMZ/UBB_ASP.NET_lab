@@ -19,14 +19,14 @@ namespace Trips.DAL.Services
 			_mapper = mapper;
 		}
 
-		public IEnumerable<PointOfIntrestDto> GetAllDto()
+		public IEnumerable<PointOfIntrestDto> GetAll()
 		{
 			var pointsOfIntrest = _pointOfInterestRepository.GetAll();
 			var result = _mapper.Map<IEnumerable<PointOfIntrestDto>>(pointsOfIntrest);
 			return result;
 		}
 
-		public PointOfIntrestDto GetByIdDto(int id)
+		public PointOfIntrestDto GetById(int id)
 		{
 			var pointOfIntrest = _pointOfInterestRepository.GetById(id);
 			var result = _mapper.Map<PointOfIntrestDto>(pointOfIntrest);
@@ -44,7 +44,7 @@ namespace Trips.DAL.Services
 			_pointOfInterestRepository.Save();
 		}
 
-		public void InsertPointOfInterest(PointOfIntrestDto pointOfInterestDto)
+		public void Insert(PointOfIntrestDto pointOfInterestDto)
 		{
 			var pointOfIntrest = _mapper.Map<PointOfIntrest>(pointOfInterestDto);
 
@@ -52,7 +52,7 @@ namespace Trips.DAL.Services
 			_pointOfInterestRepository.Save();
 		}
 
-		public void UpdatePointOfInterest(PointOfIntrestDto pointOfInterestDto)
+		public void Update(PointOfIntrestDto pointOfInterestDto)
 		{
 			var pointOfIntrest = _mapper.Map<PointOfIntrest>(pointOfInterestDto);
 

@@ -2,7 +2,7 @@
 
 public interface IRepository<TEntity> : IDisposable where TEntity : class
 {
-	IEnumerable<TEntity> GetAll();
+	IQueryable<TEntity> GetAll();
 	TEntity? GetById(int id);
 
 	void Insert(TEntity entity);

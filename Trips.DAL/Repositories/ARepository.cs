@@ -15,7 +15,7 @@ namespace Trips.DAL.Repositories
 			Mapper = mapper;
 		}
 
-		public abstract IEnumerable<TEntity> GetAll();
+		public abstract IQueryable<TEntity> GetAll();
 
 		public abstract TEntity? GetById(int id);
 

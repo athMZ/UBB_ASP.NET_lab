@@ -1,8 +1,8 @@
 ﻿@{
 	ViewData["Title"] = "Home Page";
 }
-@using Homework_Trips.ViewModels;
-@model IEnumerable<TripDetailsViewModel>;
+@model IEnumerable<Homework_Trips.ViewModels.TripDetailsViewModel>;
+@* @model IEnumerable<Trips.DAL.DTOs.MainPageCardDto>; *@
 
 <div class="text-center d-flex flex-row gap-1 flex-wrap justify-content-around">
 
@@ -12,7 +12,7 @@
 		<div class="card shadow m-4" style="width: 24rem;">
 			
 			<div class="overflow-hidden" style="max-height: 12em;">
-				<img src="@trip.ImagePath" class="border-0 rounded shadow card-img-top" alt="Obraz"/>
+				<img src="@trip.ImagePath" class="border-0 rounded shadow card-img-top" alt="img alt" />
 			</div>
 
 			<div class="card-body">

@@ -19,7 +19,7 @@ namespace Trips.DAL.Services
 			_mapper = mapper;
 		}
 
-		public IEnumerable<CountryDto> GetAllDto()
+		public IEnumerable<CountryDto> GetAll()
 		{
 			var cities = _countryRepository.GetAll();
 			var result = _mapper.Map<IEnumerable<CountryDto>>(cities);
@@ -27,24 +27,24 @@ namespace Trips.DAL.Services
 			return result;
 		}
 
-		public CountryDto GetByIdDto(int id)
+		public CountryDto GetById(int id)
 		{
 			var city = _countryRepository.GetById(id);
 			var result = _mapper.Map<CountryDto>(city);
 			return result;
 		}
 
-		public void InsertCountry(CountryDto countryDto)
+		public void Insert(CountryDto entity)
 		{
-			var country = _mapper.Map<Country>(countryDto);
+			var country = _mapper.Map<Country>(entity);
 
 			_countryRepository.Insert(country);
 			_countryRepository.Save();
 		}
 
-		public void UpdateCountry(CountryDto countryDto)
+		public void Update(CountryDto entity)
 		{
-			var country = _mapper.Map<Country>(countryDto);
+			var country = _mapper.Map<Country>(entity);
 
 			_countryRepository.Update(country);
 			_countryRepository.Save();
@@ -59,6 +59,16 @@ namespace Trips.DAL.Services
 		public bool Exists(int id)
 		{
 			return _countryRepository.Exists(id);
+		}
+
+		public IEnumerable<CountryDto> GetAllAlphabetical()
+		{
+			var countries = _countryRepository
+				.GetAll()
+				.OrderBy(c => c.Name);
+
+			var result = _mapper.Map<IEnumerable<CountryDto>>(countries);
+			return result;
 		}
 	}
 }

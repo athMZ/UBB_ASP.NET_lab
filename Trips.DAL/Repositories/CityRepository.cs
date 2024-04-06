@@ -9,7 +9,7 @@ namespace Trips.DAL.Repositories
 	{
 		public CityRepository(TripContext context, IMapper mapper) : base(context, mapper) { }
 
-		public override IEnumerable<City> GetAll()
+		public override IQueryable<City> GetAll()
 		{
 			return Context.Cities
 				.AsNoTracking()

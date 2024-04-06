@@ -17,7 +17,7 @@ namespace Homework_Trips.Controllers
         // GET: Countries
         public async Task<IActionResult> Index()
         {
-	        var result = _countryService.GetAllDto();
+	        var result = _countryService.GetAll();
             return View(result);
         }
 
@@ -27,7 +27,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var result = _countryService.GetByIdDto(id.Value);
+            var result = _countryService.GetById(id.Value);
 
             return View(result);
         }
@@ -47,7 +47,7 @@ namespace Homework_Trips.Controllers
         {
 	        if (!ModelState.IsValid) return View(countryDto);
 
-	        _countryService.InsertCountry(countryDto);
+	        _countryService.Insert(countryDto);
 
             return RedirectToAction(nameof(Index));
         }
@@ -58,7 +58,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var result = _countryService.GetByIdDto(id.Value);
+            var result = _countryService.GetById(id.Value);
 
             return View(result);
         }
@@ -77,7 +77,7 @@ namespace Homework_Trips.Controllers
 
             try
             {
-	            _countryService.UpdateCountry(countryDto);
+	            _countryService.Update(countryDto);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -95,7 +95,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var result = _countryService.GetByIdDto(id.Value);
+            var result = _countryService.GetById(id.Value);
 
             return View(result);
         }

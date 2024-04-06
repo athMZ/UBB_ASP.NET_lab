@@ -19,14 +19,14 @@ namespace Trips.DAL.Services
 			_mapper = mapper;
 		}
 
-		public IEnumerable<PhotoDto> GetAllDto()
+		public IEnumerable<PhotoDto> GetAll()
 		{
 			var photos = _photoRepository.GetAll();
 			var result = _mapper.Map<IEnumerable<PhotoDto>>(photos);
 			return result;
 		}
 
-		public PhotoDto GetByIdDto(int id)
+		public PhotoDto GetById(int id)
 		{
 			var photo = _photoRepository.GetById(id);
 			var result = _mapper.Map<PhotoDto>(photo);
@@ -44,7 +44,7 @@ namespace Trips.DAL.Services
 			_photoRepository.Save();
 		}
 
-		public void InsertCustomer(PhotoDto photoDto)
+		public void Insert(PhotoDto photoDto)
 		{
 			var photo = _mapper.Map<Photo>(photoDto);
 
@@ -52,7 +52,7 @@ namespace Trips.DAL.Services
 			_photoRepository.Save();
 		}
 
-		public void UpdateCustomer(PhotoDto photoDto)
+		public void Update(PhotoDto photoDto)
 		{
 			var photo = _mapper.Map<Photo>(photoDto);
 

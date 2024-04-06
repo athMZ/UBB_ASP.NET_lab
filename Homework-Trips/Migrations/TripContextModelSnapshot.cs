@@ -137,7 +137,7 @@ namespace Homework_Trips.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PhotoId")
+                    b.Property<int?>("PhotoId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("TripId")
@@ -165,17 +165,17 @@ namespace Homework_Trips.Migrations
                     b.Property<bool?>("Confirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("CustomerId1")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TripId")
+                    b.Property<int>("TripId1")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId1");
 
-                    b.HasIndex("TripId");
+                    b.HasIndex("TripId1");
 
                     b.ToTable("Reservations");
                 });
@@ -201,8 +201,14 @@ namespace Homework_Trips.Migrations
                     b.Property<int?>("PhotoId")
                         .HasColumnType("integer");
 
+                    b.Property<int[]>("PointsOfIntrestIds")
+                        .HasColumnType("integer[]");
+
                     b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<int[]>("ReservationsIds")
+                        .HasColumnType("integer[]");
 
                     b.Property<int>("Seats")
                         .HasColumnType("integer");
@@ -244,9 +250,7 @@ namespace Homework_Trips.Migrations
 
                     b.HasOne("Trips.DAL.Models.Photo", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PhotoId");
 
                     b.HasOne("Trips.DAL.Models.Trip", null)
                         .WithMany("PointsOfIntrest")
@@ -261,13 +265,13 @@ namespace Homework_Trips.Migrations
                 {
                     b.HasOne("Trips.DAL.Models.Customer", "Customer")
                         .WithMany("Reservations")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("CustomerId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Trips.DAL.Models.Trip", "Trip")
                         .WithMany("Reservations")
-                        .HasForeignKey("TripId")
+                        .HasForeignKey("TripId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

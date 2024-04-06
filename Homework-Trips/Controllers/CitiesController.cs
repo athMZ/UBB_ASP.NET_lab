@@ -19,7 +19,7 @@ namespace Homework_Trips.Controllers
 		// GET: Cities
 		public async Task<IActionResult> Index()
 		{
-			var result = _cityService.GetAllDto();
+			var result = _cityService.GetAll();
 			return View(result);
 		}
 
@@ -29,7 +29,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var result = _cityService.GetByIdDto(id.Value);
+			var result = _cityService.GetById(id.Value);
 			return View(result);
 		}
 
@@ -49,8 +49,7 @@ namespace Homework_Trips.Controllers
 		{
 			if (!ModelState.IsValid) return View(cityDto);
 
-			var countryDto = _countryService.GetByIdDto(cityDto.CountryId);
-			_cityService.InsertCity(cityDto, countryDto);
+			_cityService.Insert(cityDto);
 
 			return RedirectToAction(nameof(Index));
 		}
@@ -61,7 +60,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var result = _cityService.GetByIdDto(id.Value);
+			var result = _cityService.GetById(id.Value);
 
 			SetCountriesViewBag();
 			return View(result);
@@ -83,11 +82,9 @@ namespace Homework_Trips.Controllers
 				return View(cityDto);
 			}
 
-			var countryDto = _countryService.GetByIdDto(cityDto.CountryId);
-
 			try
 			{
-				_cityService.UpdateCity(cityDto, countryDto);
+				_cityService.Update(cityDto);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
@@ -104,7 +101,7 @@ namespace Homework_Trips.Controllers
 			if (id == null)
 				return NotFound();
 
-			var result = _cityService.GetByIdDto(id.Value);
+			var result = _cityService.GetById(id.Value);
 
 			return View(result);
 		}
@@ -124,7 +121,7 @@ namespace Homework_Trips.Controllers
 		}
 		private void SetCountriesViewBag()
 		{
-			ViewBag.CountryList = _countryService.GetAllDto();
+			ViewBag.CountryList = _countryService.GetAll();
 		}
 	}
 }

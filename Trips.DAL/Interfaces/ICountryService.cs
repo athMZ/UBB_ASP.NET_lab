@@ -2,12 +2,8 @@
 
 namespace Trips.DAL.Interfaces;
 
-public interface ICountryService
+public interface ICountryService : IService<CountryDto>
 {
-	IEnumerable<CountryDto> GetAllDto();
-	CountryDto GetByIdDto(int cityDtoCountryId);
-	void InsertCountry(CountryDto countryDto);
-	void UpdateCountry(CountryDto countryDto);
-	void Delete(int id);
-	bool Exists(int id);
+	public IEnumerable<CountryDto> GetAllAlphabetical();
+
 }

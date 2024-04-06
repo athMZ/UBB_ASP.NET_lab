@@ -3,7 +3,7 @@
   <Class Name="Trips.DAL.Models.City">
     <Position X="4" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgACAAAAAAAAQAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAgACAAAAAAAAQAAAIQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\City.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,21 +31,21 @@
   <Class Name="Trips.DAL.Models.PointOfIntrest">
     <Position X="2" Y="2.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgACAIAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAABAAAgACAIAAAAAAQAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Models\PointOfIntrest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Trips.DAL.Models.Reservation">
     <Position X="4" Y="2.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAECAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAECAAAAEAAAAAAAAAIAAAAAAAAAABAAAAAgAAAAAAA=</HashCode>
       <FileName>Models\Reservation.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Trips.DAL.Models.Trip">
     <Position X="6.25" Y="2.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAgACAAEgAAAAQgAABAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAACAAgAAQAgACAAEgAAAAQgAABAgAAAAAACAEAAAAA=</HashCode>
       <FileName>Models\Trip.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,11 +57,202 @@
     </TypeIdentifier>
     <Lollipop Position="0.1" />
   </Class>
+  <Class Name="Trips.DAL.Repositories.ARepository&lt;TEntity&gt;" Collapsed="true">
+    <Position X="17.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAMAAAiAEAAAACAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\ARepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Trips.DAL.Repositories.CityRepository" Collapsed="true">
+    <Position X="15" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\CityRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.CountryRepository" Collapsed="true">
+    <Position X="21.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\CountryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.CustomerRepository" Collapsed="true">
+    <Position X="10.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\CustomerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.PhotoRepository" Collapsed="true">
+    <Position X="17.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\PhotoRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.PointOfInterestRepository" Collapsed="true">
+    <Position X="24" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\PointOfInterestRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.ReservationRepository" Collapsed="true">
+    <Position X="12.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\ReservationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Repositories.TripRepository" Collapsed="true">
+    <Position X="19.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Repositories\TripRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.Services.CityService" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAABCAAAIAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Services\CityService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.CountryService" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAIAEAAAAAQgAAAAEAAIA=</HashCode>
+      <FileName>Services\CountryService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.CustomerService" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAIAEAAAAAAgAABAEAAIA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.PhotoService" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAIAEAAAAACgAAAAEAAIA=</HashCode>
+      <FileName>Services\PhotoService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.PointOfIntrestService" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAEAAAAAAAAAAAAABAAAAIAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Services\PointOfIntrestService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.ReservationService" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAQAAAAAAAABAAAAIAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Services\ReservationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.TripService" BaseTypeListCollapsed="true">
+    <Position X="16" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAAAEAAAAAEgAAAAEAAIA=</HashCode>
+      <FileName>Services\TripService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Trips.DAL.Services.MainPageService">
+    <Position X="9" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAACAAAFAAEAAAgAAAAEAAIA=</HashCode>
+      <FileName>Services\MainPageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="Trips.DAL.Interfaces.ISeeder">
     <Position X="10.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ISeeder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IRepository&lt;TEntity&gt;">
+    <Position X="14.5" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAMAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IService&lt;TEntity&gt;">
+    <Position X="10" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAEAAIA=</HashCode>
+      <FileName>Interfaces\IService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.ICityService" Collapsed="true">
+    <Position X="5.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICityService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.ICountryService" Collapsed="true">
+    <Position X="7.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICountryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.ICustomerService" Collapsed="true">
+    <Position X="12.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IMainPageService" Collapsed="true">
+    <Position X="9" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMainPageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IPhotoService" Collapsed="true">
+    <Position X="14.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPhotoService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IPointOfIntrestService" Collapsed="true">
+    <Position X="3.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPointOfIntrestService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.IReservationService" Collapsed="true">
+    <Position X="10.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IReservationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trips.DAL.Interfaces.ITripService" Collapsed="true">
+    <Position X="16" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITripService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

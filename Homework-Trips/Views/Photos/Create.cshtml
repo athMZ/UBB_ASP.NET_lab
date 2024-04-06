@@ -23,10 +23,15 @@
                 <span asp-validation-for="FileName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AltText" class="control-label"></label>
-                <input asp-for="AltText" class="form-control" />
-                <span asp-validation-for="AltText" class="text-danger"></span>
+	            <label asp-for="AltText" class="control-label"></label>
+	            <input asp-for="AltText" class="form-control" />
+	            <span asp-validation-for="AltText" class="text-danger"></span>
             </div>
+@*             <div class="form-group">
+	            <label asp-for="FileUpload.FormFile"></label>
+	            <input asp-for="FileUpload.FormFile" type="file">
+	            <span asp-validation-for="FileUpload.FormFile"></span>
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

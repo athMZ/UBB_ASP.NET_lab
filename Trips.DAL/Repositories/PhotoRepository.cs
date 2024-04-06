@@ -11,7 +11,7 @@ namespace Trips.DAL.Repositories
 		{
 		}
 
-		public override IEnumerable<Photo> GetAll()
+		public override IQueryable<Photo> GetAll()
 		{
 			return Context.Photos
 				.AsNoTracking();

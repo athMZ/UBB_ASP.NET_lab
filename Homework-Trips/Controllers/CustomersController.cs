@@ -17,7 +17,7 @@ namespace Homework_Trips.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var result = _customerService.GetAllDto();
+            var result = _customerService.GetAll();
             return View(result);
         }
 
@@ -27,7 +27,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var customer = _customerService.GetByIdDto(id.Value);
+            var customer = _customerService.GetById(id.Value);
             return View(customer);
         }
 
@@ -46,7 +46,7 @@ namespace Homework_Trips.Controllers
         {
 	        if (!ModelState.IsValid) return View(customerDto);
 
-	        _customerService.InsertCustomer(customerDto);
+	        _customerService.Insert(customerDto);
             return RedirectToAction(nameof(Index));
         }
 
@@ -56,7 +56,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var result = _customerService.GetByIdDto(id.Value);
+            var result = _customerService.GetById(id.Value);
 
             return View(result);
         }
@@ -75,7 +75,7 @@ namespace Homework_Trips.Controllers
 
             try
             {
-	            _customerService.UpdateCustomer(customerDto);
+	            _customerService.Update(customerDto);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -95,7 +95,7 @@ namespace Homework_Trips.Controllers
             if (id == null)
 	            return NotFound();
 
-            var result = _customerService.GetByIdDto(id.Value);
+            var result = _customerService.GetById(id.Value);
 
             return View(result);
         }

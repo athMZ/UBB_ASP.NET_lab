@@ -19,7 +19,7 @@ namespace Homework_Trips.Controllers
         // GET: PointOfIntrests
         public async Task<IActionResult> Index()
         {
-	        var result = _pointOfIntrestService.GetAllDto();
+	        var result = _pointOfIntrestService.GetAll();
             return View(result);
         }
 
@@ -29,7 +29,7 @@ namespace Homework_Trips.Controllers
 	        if (id == null)
 		        return NotFound();
 
-	        var pointOfIntrest = _pointOfIntrestService.GetByIdDto(id.Value);
+	        var pointOfIntrest = _pointOfIntrestService.GetById(id.Value);
 	        return View(pointOfIntrest);
         }
 
@@ -49,7 +49,7 @@ namespace Homework_Trips.Controllers
         {
 	        if (!ModelState.IsValid) return View(pointOfIntrestDto);
 
-	        _pointOfIntrestService.InsertPointOfInterest(pointOfIntrestDto);
+	        _pointOfIntrestService.Insert(pointOfIntrestDto);
 	        return RedirectToAction(nameof(Index));
         }
 
@@ -59,7 +59,7 @@ namespace Homework_Trips.Controllers
 	        if (id == null)
 		        return NotFound();
 
-	        var result = _pointOfIntrestService.GetByIdDto(id.Value);
+	        var result = _pointOfIntrestService.GetById(id.Value);
 
             SetCitiesViewBag();
 	        return View(result);
@@ -83,7 +83,7 @@ namespace Homework_Trips.Controllers
 
 	        try
 	        {
-		        _pointOfIntrestService.UpdatePointOfInterest(pointOfIntrestDto);
+		        _pointOfIntrestService.Update(pointOfIntrestDto);
 	        }
 	        catch (DbUpdateConcurrencyException)
 	        {
@@ -103,7 +103,7 @@ namespace Homework_Trips.Controllers
 	        if (id == null)
 		        return NotFound();
 
-	        var result = _pointOfIntrestService.GetByIdDto(id.Value);
+	        var result = _pointOfIntrestService.GetById(id.Value);
 
 	        return View(result);
         }
@@ -124,7 +124,7 @@ namespace Homework_Trips.Controllers
 
         private void SetCitiesViewBag()
         {
-            ViewBag.CityList = _cityService.GetAllDto();
+            ViewBag.CityList = _cityService.GetAll();
         }
     }
 }

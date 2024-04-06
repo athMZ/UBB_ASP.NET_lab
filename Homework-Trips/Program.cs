@@ -1,5 +1,11 @@
 using Trips.DAL.Interfaces;
-using Homework_Trips.Infrastructure;
+using Trips.DAL.Infrastructure;
+
+//TODO: Revamp models to simplify ids and relationships
+//TODO: Add Home Service to display main page using cards
+//TODO: Add File Controller to upload and images
+//TODO: Add File Service to save images//https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
+//https://stackoverflow.com/questions/40629947/receive-file-and-other-form-data-together-in-asp-net-core-web-api-boundary-base
 
 namespace Homework_Trips
 {
@@ -9,14 +15,14 @@ namespace Homework_Trips
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-
-            builder
-                .AddDbContext()
-                .AddRepositories()
-                .AddServices()
-                .AddLogger()
-                .AddSeeder()
-                .AddAutoMapper();
+			builder
+				//.AddDbContext()
+				.AddInMemoryDbContext()
+				.AddRepositories()
+				.AddServices()
+				.AddLogger()
+				.AddSeeder()
+				.AddAutoMapper();
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();

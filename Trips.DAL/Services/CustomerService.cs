@@ -19,14 +19,14 @@ namespace Trips.DAL.Services
 			_mapper = mapper;
 		}
 
-		public IEnumerable<CustomerDto> GetAllDto()
+		public IEnumerable<CustomerDto> GetAll()
 		{
 			var customers = _customerRepository.GetAll();
 			var result = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 			return result;
 		}
 
-		public CustomerDto GetByIdDto(int id)
+		public CustomerDto GetById(int id)
 		{
 			var customer = _customerRepository.GetById(id);
 			var result = _mapper.Map<CustomerDto>(customer);
@@ -44,7 +44,7 @@ namespace Trips.DAL.Services
 			_customerRepository.Save();
 		}
 
-		public void InsertCustomer(CustomerDto customerDto)
+		public void Insert(CustomerDto customerDto)
 		{
 			var customer = _mapper.Map<Customer>(customerDto);
 
@@ -52,7 +52,7 @@ namespace Trips.DAL.Services
 			_customerRepository.Save();
 		}
 
-		public void UpdateCustomer(CustomerDto customerDto)
+		public void Update(CustomerDto customerDto)
 		{
 			var customer = _mapper.Map<Customer>(customerDto);
 

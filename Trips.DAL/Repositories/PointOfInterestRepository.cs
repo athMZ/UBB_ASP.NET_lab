@@ -11,7 +11,7 @@ namespace Trips.DAL.Repositories
 		{
 		}
 
-		public override IEnumerable<PointOfIntrest> GetAll()
+		public override IQueryable<PointOfIntrest> GetAll()
 		{
 			return Context.PointsOfIntrest
 				.AsNoTracking()

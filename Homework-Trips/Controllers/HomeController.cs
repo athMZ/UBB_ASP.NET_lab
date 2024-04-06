@@ -2,28 +2,35 @@ using Homework_Trips.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Homework_Trips.ViewModels;
+using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
 {
 	public class HomeController : Controller
 	{
+		private readonly IMainPageService _mainPageService;
 		private readonly ILogger<HomeController> _logger;
 
 		private readonly IEnumerable<TripDetailsViewModel> _trips = DataSource.Trips;
 
-
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IMainPageService mainPageService)
 		{
 			_logger = logger;
+			_mainPageService = mainPageService;
 		}
 
 		public IActionResult Index()
 		{
+			/*		var result = _mainPageService.GetAll();
+						return View(result);*/
 			return View(_trips);
 		}
 
 		public IActionResult Details(int id)
 		{
+			/*var result = _mainPageService.GetById(id);
+			return View(result);*/
+
 			var trip = _trips.FirstOrDefault(x => x.Id == id);
 			return View(trip);
 		}
