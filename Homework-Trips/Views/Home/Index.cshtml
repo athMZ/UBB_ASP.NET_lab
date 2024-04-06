@@ -1,8 +1,7 @@
 ﻿@{
 	ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<Homework_Trips.ViewModels.TripDetailsViewModel>;
-@* @model IEnumerable<Trips.DAL.DTOs.MainPageCardDto>; *@
+@model IEnumerable<Trips.DAL.DTOs.MainPageCardDto>;
 
 <div class="text-center d-flex flex-row gap-1 flex-wrap justify-content-around">
 
@@ -10,13 +9,13 @@
 	{
 
 		<div class="card shadow m-4" style="width: 24rem;">
-			
+
 			<div class="overflow-hidden" style="max-height: 12em;">
-				<img src="@trip.ImagePath" class="border-0 rounded shadow card-img-top" alt="img alt" />
+				<img src="@trip.PhotoUrl" class="border-0 rounded shadow card-img-top" alt="@trip.PhotoAltText" />
 			</div>
 
 			<div class="card-body">
-				<h5 class="card-title">@trip.Title</h5>
+				<h5 class="card-title">@trip.Name</h5>
 				<hr />
 
 				<div class="text-start">
@@ -26,7 +25,7 @@
 				</div>
 
 				<div class="progress" style="height: 2em">
-					<div class="progress-bar" role="progressbar" aria-valuenow="@trip.Reservations" aria-valuemin="0" aria-valuemax="@trip.GroupSize" style="width:@(trip.PercentReserved)%">
+					<div class="progress-bar" role="progressbar" aria-valuenow="@trip.Reservations" aria-valuemin="0" aria-valuemax="@trip.Seats" style="width:@(trip.SeatsReservedPercent)%">
 						@trip.Reservations
 					</div>
 				</div>

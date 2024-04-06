@@ -40,8 +40,26 @@ namespace Trips.DAL.Infrastructure
             CreateMap<Reservation, ReservationDto>();
             CreateMap<ReservationDto, Reservation>();
 
-            CreateMap<Trip, TripDto>();
-            CreateMap<TripDto, Trip>();
+            CreateMap<Trip, TripDto>()
+                .ForMember(
+                    dest => dest.ReservationsIds,
+                    opt => opt.MapFrom(src => src.Reservations.Select(r => r.Id))
+                );
+            CreateMap<TripDto, Trip>()
+                .ForMember(
+                    dest => dest.Reservations,
+                    opt => opt
+                        .MapFrom(src => (src.ReservationsIds).Select(r => new Reservation
+                            {
+                                Id = r,
+                                Confirmed = null,
+                                Trip = null,
+                                Customer = null,
+                                TripId = 0,
+                                CustomerId = 0
+                            })
+                        )
+                    );
         }
     }
 }

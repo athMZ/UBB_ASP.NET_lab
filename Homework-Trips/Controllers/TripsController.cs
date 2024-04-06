@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Homework_Trips.Data;
+using Trips.DAL.Data;
 using Trips.DAL.Models;
 
 namespace Homework_Trips.Controllers
 {
     public class TripsController : Controller
     {
-        private readonly Homework_TripsContext _context;
+        private readonly TripContext _context;
 
-        public TripsController(Homework_TripsContext context)
+        public TripsController(TripContext context)
         {
             _context = context;
         }
@@ -17,7 +17,7 @@ namespace Homework_Trips.Controllers
         // GET: Trips
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Trip.ToListAsync());
+            return View(await _context.Trips.ToListAsync());
         }
 
         // GET: Trips/Details/5
@@ -28,7 +28,7 @@ namespace Homework_Trips.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip
+            var trip = await _context.Trips
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (trip == null)
             {
@@ -68,7 +68,7 @@ namespace Homework_Trips.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip.FindAsync(id);
+            var trip = await _context.Trips.FindAsync(id);
             if (trip == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace Homework_Trips.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip
+            var trip = await _context.Trips
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (trip == null)
             {
@@ -134,10 +134,10 @@ namespace Homework_Trips.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trip = await _context.Trip.FindAsync(id);
+            var trip = await _context.Trips.FindAsync(id);
             if (trip != null)
             {
-                _context.Trip.Remove(trip);
+                _context.Trips.Remove(trip);
             }
 
             await _context.SaveChangesAsync();
@@ -146,7 +146,7 @@ namespace Homework_Trips.Controllers
 
         private bool TripExists(int id)
         {
-            return _context.Trip.Any(e => e.Id == id);
+            return _context.Trips.Any(e => e.Id == id);
         }
     }
 }
