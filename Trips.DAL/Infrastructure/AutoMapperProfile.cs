@@ -44,7 +44,12 @@ namespace Trips.DAL.Infrastructure
                 .ForMember(
                     dest => dest.ReservationsIds,
                     opt => opt.MapFrom(src => src.Reservations.Select(r => r.Id))
+                )
+                .ForMember(
+	                dest => dest.PointsOfIntrestIds,
+	                opt => opt.MapFrom(src => src.PointsOfIntrest.Select(r => r.Id))
                 );
+
             CreateMap<TripDto, Trip>()
                 .ForMember(
                     dest => dest.Reservations,

@@ -19,5 +19,7 @@
 		public string PhotoUrl { get; set; }
 		public string PhotoAltText { get; set; }
 
+		public PointOfIntrestDto[]? PointsOfIntrestDtos { get; set; }
+
 	}
 }

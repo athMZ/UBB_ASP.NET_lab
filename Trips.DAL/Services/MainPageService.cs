@@ -8,12 +8,14 @@ namespace Trips.DAL.Services
         private readonly ITripService _tripService;
         private readonly IReservationService _reservationService;
         private readonly IPhotoService _photoService;
+        private readonly IPointOfIntrestService _pointOfIntrestService;
 
-        public MainPageService(ITripService tripService, IReservationService reservationService, IPhotoService photoService)
+        public MainPageService(ITripService tripService, IReservationService reservationService, IPhotoService photoService, IPointOfIntrestService pointOfIntrestService)
         {
             _tripService = tripService;
             _reservationService = reservationService;
             _photoService = photoService;
+            _pointOfIntrestService = pointOfIntrestService;
         }
 
         public IEnumerable<MainPageCardDto> GetAll()
@@ -55,7 +57,9 @@ namespace Trips.DAL.Services
 
                         PhotoAltText = altText,
                         PhotoTitle = photoTitle,
-                        PhotoUrl = photoUrl
+                        PhotoUrl = photoUrl,
+
+                        PointsOfIntrestDtos = trip.PointsOfIntrestIds?.Select(id => _pointOfIntrestService.GetById(id)).ToArray()
                     };
                 });
 
@@ -99,7 +103,9 @@ namespace Trips.DAL.Services
 
 	            PhotoAltText = altText,
 	            PhotoTitle = photoTitle,
-	            PhotoUrl = photoUrl
+	            PhotoUrl = photoUrl,
+
+	            PointsOfIntrestDtos = trip.PointsOfIntrestIds?.Select(id => _pointOfIntrestService.GetById(id)).ToArray()
             };
 
             return card;

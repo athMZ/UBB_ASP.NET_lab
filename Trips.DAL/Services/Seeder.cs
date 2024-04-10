@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Serilog;
+﻿using Serilog;
 using Trips.DAL.Data;
 using Trips.DAL.Interfaces;
 using Trips.DAL.Models;
@@ -57,8 +56,8 @@ namespace Trips.DAL.Services
 		[
 			new Trip
 		{
-			Name = "Wakacje w Krakowie",
-			Description = "Wakacje",
+			Name = "Magiczny Kraków",
+			Description = "Zapraszamy na niezapomnianą wycieczkę do magicznego Krakowa, gdzie historia, kultura i współczesność splatają się w fascynujący sposób. Odkryj uroki Starego Miasta z Rynkiem Głównym i Wawelem oraz zanurz się w atmosferze kulturalnego bogactwa, jaka czeka na Ciebie na każdym kroku.",
 			StartDate = new DateOnly(2024, 7, 1),
 			EndDate = new DateOnly(2024, 7, 14),
 			Price = 2000,
@@ -71,8 +70,8 @@ namespace Trips.DAL.Services
 		},
 		new Trip
 		{
-			Name = "Wakacje w Gdańsku",
-			Description = "Wakacje",
+			Name = "Niezwykły Gdańsk",
+			Description = "Odwiedź niezwykłe miasto Gdańsk, gdzie historia, architektura i atmosfera portowej miejscowości tworzą wyjątkowy klimat. Spaceruj po urokliwych uliczkach Starego Miasta, zanurzając się w bogatej historii i niezwykłych widokach, które pozostaną w Twojej pamięci na długo.",
 			StartDate = new DateOnly(2024, 8, 1),
 			EndDate = new DateOnly(2024, 8, 14),
 			Price = 2500,
