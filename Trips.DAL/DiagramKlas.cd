@@ -3,14 +3,14 @@
   <Class Name="Trips.DAL.Models.City">
     <Position X="4" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgACAAAAAAAAQAAAIQAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAgACAAAAAAAAQAAAIQAAAAAAACAAAAAAA=</HashCode>
       <FileName>Models\City.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Trips.DAL.Models.Country">
     <Position X="4" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Country.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="Trips.DAL.Models.Trip">
     <Position X="6.25" Y="2.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAgAAQAgACAAEgAAAAQgAABAgAAAAAACAEAAAAA=</HashCode>
+      <HashCode>AAACAAAAAQAgACAAEgAAAAQgAABAAAAAAAACAEAAAAA=</HashCode>
       <FileName>Models\Trip.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -125,7 +125,7 @@
   <Class Name="Trips.DAL.Services.CountryService" BaseTypeListCollapsed="true">
     <Position X="7.25" Y="16.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAIAEAAAAAQgAAAAEAAIA=</HashCode>
+      <HashCode>AAQAAEAAAAAAAAAAAAABAAAAIAEAAAAAQgAAAAEAAYA=</HashCode>
       <FileName>Services\CountryService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -178,6 +178,62 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Trips.DAL.DTOs.CityDto" Collapsed="true">
+    <Position X="33.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAgAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\CityDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.CountryDto" Collapsed="true">
+    <Position X="35" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\CountryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.CustomerDto" Collapsed="true">
+    <Position X="36.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>DTOs\CustomerDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.MainPageCardDto">
+    <Position X="38.75" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAkAAAIkkAAAAQgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DTOs\MainPageCardDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.PhotoDto" Collapsed="true">
+    <Position X="35" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>DTOs\PhotoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.PointOfIntrestDto" Collapsed="true">
+    <Position X="36.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAABIAAgAAAAAAAAAAQAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>DTOs\PointOfInterestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.ReservationDto" Collapsed="true">
+    <Position X="33.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAIAAAAAAAAAABAAAAAgAAAAAAA=</HashCode>
+      <FileName>DTOs\ReservationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trips.DAL.DTOs.TripDto" Collapsed="true">
+    <Position X="33.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAgAAQAgAAAAAgAAAAQgAAAAgAAAAAACAEAAAAA=</HashCode>
+      <FileName>DTOs\TripDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="Trips.DAL.Interfaces.ISeeder">
     <Position X="10.75" Y="1" Width="1.5" />
     <TypeIdentifier>
@@ -209,7 +265,7 @@
   <Interface Name="Trips.DAL.Interfaces.ICountryService" Collapsed="true">
     <Position X="7.25" Y="15.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Interfaces\ICountryService.cs</FileName>
     </TypeIdentifier>
   </Interface>
