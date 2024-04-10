@@ -34,7 +34,7 @@ namespace Trips.DAL.Services
 
 	                    altText = photo.AltText;
 	                    photoTitle = photo.Title;
-	                    photoUrl = $"Resources/{photo.FileName}";
+	                    photoUrl = $"https://localhost:7230/Resources/{photo.FileName}";
                     }
 
                     return new MainPageCardDto
@@ -66,19 +66,19 @@ namespace Trips.DAL.Services
         public MainPageCardDto GetById(int id)
         {
             var trip = _tripService.GetById(id);
-            var reservationCount = trip.ReservationsIds?.Count ?? 0;
 
+            var reservationCount = trip.ReservationsIds?.Count ?? 0;
             var altText = "photo.AltText";
             var photoTitle = "photo.Title";
             var photoUrl = "photoUrl";
 
             if (trip.PhotoId.HasValue)
             {
-				var photo = _photoService.GetById(trip.PhotoId.Value);
+	            var photo = _photoService.GetById(trip.PhotoId.Value);
 
-                altText = photo.AltText;
-                photoTitle = photo.Title;
-	            photoUrl = $"http://localhost:2024/{photo.FileName}";
+	            altText = photo.AltText;
+	            photoTitle = photo.Title;
+	            photoUrl = $"https://localhost:7230/Resources/{photo.FileName}";
             }
 
             var card = new MainPageCardDto

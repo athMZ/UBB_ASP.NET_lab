@@ -23,16 +23,12 @@ namespace Homework_Trips.Controllers
         {
             var result = _mainPageService.GetAll();
             return View(result);
-            //return View(_trips);
         }
 
         public IActionResult Details(int id)
         {
-            /*var result = _mainPageService.GetById(id);
-			return View(result);*/
-
-            var trip = _trips.FirstOrDefault(x => x.Id == id);
-            return View(trip);
+            var result = _mainPageService.GetById(id);
+			return View(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
