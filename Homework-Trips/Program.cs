@@ -15,6 +15,9 @@ namespace Homework_Trips
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
+
 			builder
 				//.AddDbContext()
 				.AddInMemoryDbContext()
@@ -22,10 +25,8 @@ namespace Homework_Trips
 				.AddServices()
 				.AddLogger()
 				.AddSeeder()
+				.AddValidators()
 				.AddAutoMapper();
-
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
 

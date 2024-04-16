@@ -2,4 +2,7 @@
 
 namespace Trips.DAL.Interfaces;
 
-public interface ICustomerService : IService<CustomerDto>;
+public interface ICustomerService : IService<CustomerDto>
+{
+	bool EmailExists(string email);
+}

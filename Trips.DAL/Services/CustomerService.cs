@@ -59,5 +59,11 @@ namespace Trips.DAL.Services
 			_customerRepository.Update(customer);
 			_customerRepository.Save();
 		}
+
+		public bool EmailExists(string email)
+		{
+			var result = _customerRepository.GetAll().Any(x => x.Email == email);
+			return result;
+		}
 	}
 }
