@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -8,10 +10,12 @@ namespace Homework_Trips.Controllers
     public class CountriesController : Controller
     {
         private readonly ICountryService _countryService;
+        private readonly IValidator<CountryDto> _countryValidator;
 
-        public CountriesController(ICountryService countryService)
+        public CountriesController(ICountryService countryService, IValidator<CountryDto> countryValidator)
         {
-            _countryService = countryService;
+	        _countryService = countryService;
+	        _countryValidator = countryValidator;
         }
 
         // GET: Countries
@@ -45,7 +49,15 @@ namespace Homework_Trips.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] CountryDto countryDto)
         {
-	        if (!ModelState.IsValid) return View(countryDto);
+
+	        var result = await _countryValidator.ValidateAsync(countryDto);
+
+	        if (!ModelState.IsValid || !result.IsValid)
+	        {
+                result.AddToModelState(ModelState);
+
+		        return View(countryDto);
+	        }
 
 	        _countryService.Insert(countryDto);
 
@@ -73,7 +85,13 @@ namespace Homework_Trips.Controllers
             if (id != countryDto.Id)
 	            return NotFound();
 
-            if (!ModelState.IsValid) return View(countryDto);
+            var result = await _countryValidator.ValidateAsync(countryDto);
+
+            if (!ModelState.IsValid || !result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+	            return View(countryDto);
+            }
 
             try
             {

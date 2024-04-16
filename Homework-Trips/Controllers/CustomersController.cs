@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -8,10 +10,12 @@ namespace Homework_Trips.Controllers
     public class CustomersController : Controller
     {
         private readonly ICustomerService _customerService;
+        private readonly IValidator<CustomerDto> _customerValidator;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(ICustomerService customerService, IValidator<CustomerDto> customerValidator)
         {
 	        _customerService = customerService;
+	        _customerValidator = customerValidator;
         }
 
         // GET: Customers
@@ -44,10 +48,17 @@ namespace Homework_Trips.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] CustomerDto customerDto)
         {
-	        if (!ModelState.IsValid) return View(customerDto);
+	        var result = await _customerValidator.ValidateAsync(customerDto);
 
+	        if (!ModelState.IsValid || !result.IsValid)
+	        {
+                result.AddToModelState(ModelState);
+		        return View(customerDto);
+	        }
+            
 	        _customerService.Insert(customerDto);
-            return RedirectToAction(nameof(Index));
+	        return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Customers/Edit/5
@@ -71,7 +82,13 @@ namespace Homework_Trips.Controllers
             if (id != customerDto.Id)
 	            return NotFound();
 
-            if (!ModelState.IsValid) return View(customerDto);
+            var result = await _customerValidator.ValidateAsync(customerDto);
+
+            if (!ModelState.IsValid || !result.IsValid)
+            {
+	            result.AddToModelState(ModelState);
+	            return View(customerDto);
+            }
 
             try
             {

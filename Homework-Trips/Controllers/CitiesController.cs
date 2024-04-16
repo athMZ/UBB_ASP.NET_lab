@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -9,11 +12,13 @@ namespace Homework_Trips.Controllers
 	{
 		private readonly ICityService _cityService;
 		private readonly ICountryService _countryService;
+		private readonly IValidator<CityDto> _cityValidator;
 
-		public CitiesController(ICityService cityService, ICountryService countryService)
+		public CitiesController(ICityService cityService, ICountryService countryService, IValidator<CityDto> cityValidator)
 		{
 			_cityService = cityService;
 			_countryService = countryService;
+			_cityValidator = cityValidator;
 		}
 
 		// GET: Cities
@@ -47,7 +52,15 @@ namespace Homework_Trips.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CityDto cityDto)
 		{
-			if (!ModelState.IsValid) return View(cityDto);
+			var result = await _cityValidator.ValidateAsync(cityDto);
+
+			if (!result.IsValid || !ModelState.IsValid)
+			{
+				result.AddToModelState(ModelState);
+				SetCountriesViewBag();
+
+				return View(cityDto);
+			}
 
 			_cityService.Insert(cityDto);
 
@@ -76,9 +89,12 @@ namespace Homework_Trips.Controllers
 			if (id != cityDto.Id)
 				return NotFound();
 
-			if (!ModelState.IsValid)
+			var result = await _cityValidator.ValidateAsync(cityDto);
+			if (!result.IsValid || !ModelState.IsValid)
 			{
+				result.AddToModelState(ModelState);
 				SetCountriesViewBag();
+
 				return View(cityDto);
 			}
 

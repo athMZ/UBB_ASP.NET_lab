@@ -9,29 +9,32 @@
 <h4>City</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-	            <label asp-for="Description" class="control-label"></label>
-	            <input asp-for="Description" class="form-control" />
-	            <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-	            @Html.DropDownListFor(model => model.CountryId,
-		            new SelectList(ViewBag.CountryList, "Id", "Name"),
-		            "Select a Country")
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		
+		<a asp-controller="Countries" asp-action="Create">Add a country</a>
+
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control"/>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description" class="control-label"></label>
+				<input asp-for="Description" class="form-control"/>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				@Html.DropDownListFor(model => model.CountryId,
+					new SelectList(ViewBag.CountryList, "Id", "Name"),
+					"Select a Country")
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary"/>
+			</div>
+		</form>
+	</div>
 </div>
 
 <div>
