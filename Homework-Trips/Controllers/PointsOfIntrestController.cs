@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -9,11 +11,13 @@ namespace Homework_Trips.Controllers
     {
 	    private readonly IPointOfIntrestService _pointOfIntrestService;
         private readonly ICityService _cityService;
+        private readonly IValidator<PointOfIntrestDto> _pointOfIntrestValidator;
 
-        public PointsOfIntrestController(IPointOfIntrestService pointOfIntrestService, ICityService cityService)
+        public PointsOfIntrestController(IPointOfIntrestService pointOfIntrestService, ICityService cityService, IValidator<PointOfIntrestDto> pointOfIntrestValidator)
         {
             _pointOfIntrestService = pointOfIntrestService;
             _cityService = cityService;
+            _pointOfIntrestValidator = pointOfIntrestValidator;
         }
 
         // GET: PointOfIntrests
@@ -45,9 +49,17 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] PointOfIntrestDto pointOfIntrestDto)
+        public async Task<IActionResult> Create(PointOfIntrestDto pointOfIntrestDto)
         {
-	        if (!ModelState.IsValid) return View(pointOfIntrestDto);
+            var result = await _pointOfIntrestValidator.ValidateAsync(pointOfIntrestDto);
+
+	        if (!ModelState.IsValid || !result.IsValid)
+	        {
+                result.AddToModelState(ModelState);
+
+                SetCitiesViewBag();
+		        return View(pointOfIntrestDto);
+	        }
 
 	        _pointOfIntrestService.Insert(pointOfIntrestDto);
 	        return RedirectToAction(nameof(Index));
@@ -75,8 +87,12 @@ namespace Homework_Trips.Controllers
 	        if (id != pointOfIntrestDto.Id)
 		        return NotFound();
 
-            if (!ModelState.IsValid)
+            var result = await _pointOfIntrestValidator.ValidateAsync(pointOfIntrestDto);
+
+            if (!ModelState.IsValid || !result.IsValid)
             {
+                result.AddToModelState(ModelState);
+
                 SetCitiesViewBag();
                 return View(pointOfIntrestDto);
             }

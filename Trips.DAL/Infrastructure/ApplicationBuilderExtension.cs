@@ -10,7 +10,6 @@ using Trips.DAL.Interfaces;
 using Trips.DAL.Models;
 using Trips.DAL.Repositories;
 using Trips.DAL.Services;
-using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 using ILogger = Serilog.ILogger;
 
@@ -74,12 +73,7 @@ namespace Trips.DAL.Infrastructure
         public static WebApplicationBuilder AddValidators(this WebApplicationBuilder builder)
         {
 	        builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-
-            builder.Services.AddFluentValidationAutoValidation(fv =>
-            {
-                fv.DisableBuiltInModelValidation = true;
-            });
-
+            
 	        return builder;
         }
         public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -8,10 +10,12 @@ namespace Homework_Trips.Controllers
 	public class PhotosController : Controller
 	{
 		private readonly IPhotoService _photoService;
+		private readonly IValidator<PhotoDto> _photoValidator;
 
-		public PhotosController(IPhotoService photoService)
+		public PhotosController(IPhotoService photoService, IValidator<PhotoDto> photoValidator)
 		{
 			_photoService = photoService;
+			_photoValidator = photoValidator;
 		}
 
 		// GET: Photos
@@ -44,7 +48,13 @@ namespace Homework_Trips.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create([Bind("Id,Title,FileName,AltText")] PhotoDto photoDto)
 		{
-			if (!ModelState.IsValid) return View(photoDto);
+			var result = await _photoValidator.ValidateAsync(photoDto);
+
+			if (!ModelState.IsValid || !result.IsValid)
+			{
+				result.AddToModelState(ModelState);
+				return View(photoDto);
+			}
 
 			_photoService.Insert(photoDto);
 			return RedirectToAction(nameof(Index));
@@ -71,7 +81,13 @@ namespace Homework_Trips.Controllers
 			if (id != photoDto.Id)
 				return NotFound();
 
-			if (!ModelState.IsValid) return View(photoDto);
+			var result = await _photoValidator.ValidateAsync(photoDto);
+
+			if (!ModelState.IsValid || !result.IsValid)
+			{
+				result.AddToModelState(ModelState);
+				return View(photoDto);
+			}
 
 			try
 			{
@@ -80,9 +96,7 @@ namespace Homework_Trips.Controllers
 			catch (DbUpdateConcurrencyException)
 			{
 				if (!PhotoExists(photoDto.Id))
-				{
 					return NotFound();
-				}
 
 				throw;
 			}

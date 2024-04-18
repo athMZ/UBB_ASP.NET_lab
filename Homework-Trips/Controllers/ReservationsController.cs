@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
+using Trips.DAL.Infrastructure;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
@@ -10,12 +12,14 @@ namespace Homework_Trips.Controllers
         private readonly IReservationService _reservationService;
         private readonly ICustomerService _customerService;
         private readonly ITripService _tripService;
+        private readonly IValidator<ReservationDto> _reservationValidator;
 
-        public ReservationsController(IReservationService reservationService, ICustomerService customerService, ITripService tripService)
+        public ReservationsController(IReservationService reservationService, ICustomerService customerService, ITripService tripService, IValidator<ReservationDto> reservationValidator)
         {
             _reservationService = reservationService;
             _customerService = customerService;
             _tripService = tripService;
+            _reservationValidator = reservationValidator;
         }
 
         // GET: Reservations
@@ -47,9 +51,15 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Confirmed")] ReservationDto reservationDto)
+        public async Task<IActionResult> Create(ReservationDto reservationDto)
         {
-            if (!ModelState.IsValid) return View(reservationDto);
+	        var result = await _reservationValidator.ValidateAsync(reservationDto);
+
+            if (!ModelState.IsValid || !result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+	            return View(reservationDto);
+            }
 
             _reservationService.Insert(reservationDto);
 
@@ -78,8 +88,12 @@ namespace Homework_Trips.Controllers
             if (id != reservationDto.Id)
                 return NotFound();
 
-            if (!ModelState.IsValid)
+            var result = await _reservationValidator.ValidateAsync(reservationDto);
+
+            if (!ModelState.IsValid || !result.IsValid)
             {
+                result.AddToModelState(ModelState);
+
                 SetViewBag();
                 return View(reservationDto);
             }
