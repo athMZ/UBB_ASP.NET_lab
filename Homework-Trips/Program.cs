@@ -1,14 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Trips.DAL.Data;
 using Trips.DAL.Interfaces;
 using Trips.DAL.Infrastructure;
 
-//TODO: Revamp models to simplify ids and relationships
-//TODO: Add Home Service to display main page using cards
 //TODO: Add File Controller to upload and images
 //TODO: Add File Service to save images//https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
 //https://stackoverflow.com/questions/40629947/receive-file-and-other-form-data-together-in-asp-net-core-web-api-boundary-base
-
-//TODO: Scaffold Identity using postgresql
-//TODO: Change DB context to use Identity
 
 namespace Homework_Trips
 {
@@ -21,12 +18,22 @@ namespace Homework_Trips
 			builder
 				//.AddDbContext()
 				.AddInMemoryDbContext()
+				//.AddIdentity()
 				.AddRepositories()
 				.AddServices()
 				.AddLogger()
 				.AddSeeder()
 				.AddValidators()
 				.AddAutoMapper();
+
+			// Add Identity to the container - can't move to an extension method
+			builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+				.AddDefaultUI()
+				.AddEntityFrameworkStores<TripContext>()
+				.AddDefaultTokenProviders();
+
+			//Add Razor Pages to the container
+			builder.Services.AddRazorPages();
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
@@ -58,7 +65,7 @@ namespace Homework_Trips
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 
-			//TODO: Map Razor Pages
+			app.MapRazorPages();
 
 			app.Run();
 		}

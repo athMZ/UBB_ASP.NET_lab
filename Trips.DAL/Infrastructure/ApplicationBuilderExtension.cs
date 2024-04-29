@@ -15,110 +15,99 @@ using ILogger = Serilog.ILogger;
 
 namespace Trips.DAL.Infrastructure
 {
-    public static class ApplicationBuilderExtension
-    {
-        public static WebApplicationBuilder AddDbContext(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddDbContext<TripContext>(options =>
-            {
-                var connection = builder.Configuration.GetConnectionString("postgres") ?? throw new InvalidOperationException("Connection string 'Homework_TripsContextConnection' not found.");
+	public static class ApplicationBuilderExtension
+	{
+		public static WebApplicationBuilder AddDbContext(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddDbContext<TripContext>(options =>
+			{
+				var connection = builder.Configuration.GetConnectionString("postgres") ?? throw new InvalidOperationException("Connection string 'Homework_TripsContextConnection' not found.");
 
-                options.UseNpgsql(connection, b =>
-                {
-                    b.MigrationsAssembly("Homework-Trips");
-                });
+				options.UseNpgsql(connection, b =>
+				{
+					b.MigrationsAssembly("Homework-Trips");
+				});
 
-            });
-            return builder;
-        }
+			});
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddInMemoryDbContext(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddDbContext<TripContext>(options =>
-            {
+		public static WebApplicationBuilder AddInMemoryDbContext(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddDbContext<TripContext>(options =>
+			{
 				options.UseInMemoryDatabase("Trips");
 			});
 
-            return builder;
-        }
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
-        {
-	        builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-		        .AddEntityFrameworkStores<TripContext>()
-		        .AddDefaultTokenProviders();
+		public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
+		{
+			builder.Services
+				.AddScoped<IRepository<City>, CityRepository>()
+				.AddScoped<IRepository<Country>, CountryRepository>()
+				.AddScoped<IRepository<Customer>, CustomerRepository>()
+				.AddScoped<IRepository<Photo>, PhotoRepository>()
+				.AddScoped<IRepository<PointOfIntrest>, PointOfInterestRepository>()
+				.AddScoped<IRepository<Reservation>, ReservationRepository>()
+				.AddScoped<IRepository<Trip>, TripRepository>();
+			return builder;
+		}
 
+		public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+		{
+			builder.Services
+				.AddScoped<ICountryService, CountryService>()
+				.AddScoped<ICityService, CityService>()
+				.AddScoped<ICustomerService, CustomerService>()
+				.AddScoped<IPhotoService, PhotoService>()
+				.AddScoped<IPointOfIntrestService, PointOfIntrestService>()
+				.AddScoped<IReservationService, ReservationService>()
+				.AddScoped<ITripService, TripService>()
+				.AddScoped<IMainPageService, MainPageService>()
+				.AddScoped<IFileService, FileService>();
+			return builder;
+		}
 
-	        return builder;
-        }
+		public static WebApplicationBuilder AddValidators(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+			ValidatorOptions.Global.LanguageManager.Enabled = false;
 
+			return builder;
+		}
+		public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddScoped<ISeeder, Seeder>();
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
-        {
-            builder.Services
-                .AddScoped<IRepository<City>, CityRepository>()
-                .AddScoped<IRepository<Country>, CountryRepository>()
-                .AddScoped<IRepository<Customer>, CustomerRepository>()
-                .AddScoped<IRepository<Photo>, PhotoRepository>()
-                .AddScoped<IRepository<PointOfIntrest>, PointOfInterestRepository>()
-                .AddScoped<IRepository<Reservation>, ReservationRepository>()
-                .AddScoped<IRepository<Trip>, TripRepository>();
-            return builder;
-        }
+		public static WebApplicationBuilder AddLogger(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddSingleton<ILogger>(x => new LoggerConfiguration()
+				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+				.MinimumLevel.Information()
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
+				.CreateLogger());
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
-        {
-            builder.Services
-                .AddScoped<ICountryService, CountryService>()
-                .AddScoped<ICityService, CityService>()
-                .AddScoped<ICustomerService, CustomerService>()
-                .AddScoped<IPhotoService, PhotoService>()
-                .AddScoped<IPointOfIntrestService, PointOfIntrestService>()
-                .AddScoped<IReservationService, ReservationService>()
-                .AddScoped<ITripService, TripService>()
-                .AddScoped<IMainPageService, MainPageService>()
-                .AddScoped<IFileService, FileService>();
-            return builder;
-        }
+		public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddValidators(this WebApplicationBuilder builder)
-        {
-	        builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-            ValidatorOptions.Global.LanguageManager.Enabled = false;
+		public static WebApplicationBuilder AddConfigure(this WebApplicationBuilder builder)
+		{
+			var @photoServerParams = builder.Configuration.GetSection(PhotoServerParams.Section);
+			builder.Services.Configure<PhotoServerParams>(@photoServerParams);
 
-	        return builder;
-        }
-        public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddScoped<ISeeder, Seeder>();
-            return builder;
-        }
+			return builder;
+		}
 
-        public static WebApplicationBuilder AddLogger(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddSingleton<ILogger>(x => new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Information()
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File("/logs/server-log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger());
-            return builder;
-        }
-
-        public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            return builder;
-        }
-
-        public static WebApplicationBuilder AddConfigure(this WebApplicationBuilder builder)
-        {
-            var @photoServerParams = builder.Configuration.GetSection(PhotoServerParams.Section);
-            builder.Services.Configure<PhotoServerParams>(@photoServerParams);
-
-            return builder;
-        }
-
-    }
+	}
 }
