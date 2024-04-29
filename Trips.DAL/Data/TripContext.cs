@@ -1,16 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Trips.DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Trips.DAL.Data
 {
-	public class TripContext : DbContext
+	public class TripContext : IdentityDbContext<IdentityUser>
 	{
-		public TripContext()
-		{
-			
-		}
-
-		public TripContext(DbContextOptions<TripContext> options) : base(options)
+		public TripContext(DbContextOptions<TripContext> options)
+			: base(options)
 		{
 		}
 
@@ -21,5 +19,10 @@ namespace Trips.DAL.Data
 		public DbSet<Reservation> Reservations { get; set; }
 		public DbSet<Trip> Trips { get; set; }
 		public DbSet<Customer> Customers { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+		}
 	}
 }

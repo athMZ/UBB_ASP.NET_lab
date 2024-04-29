@@ -33,12 +33,12 @@ namespace TripsTests
         }
 
         [Fact]
-        public void Should_Have_Error_When_Description_Is_Longer_Than_200_Characters()
+        public void Should_Have_Error_When_Description_Is_Longer_Than_600_Characters()
         {
             var model = new TripDto
             {
 	            Description = new string('a',
-		            201),
+		            601),
 	            Name = null!
             };
             var result = _validator.TestValidate(model);

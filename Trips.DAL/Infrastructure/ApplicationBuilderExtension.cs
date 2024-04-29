@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,6 @@ using Trips.DAL.Interfaces;
 using Trips.DAL.Models;
 using Trips.DAL.Repositories;
 using Trips.DAL.Services;
-
 using ILogger = Serilog.ILogger;
 
 namespace Trips.DAL.Infrastructure
@@ -21,7 +21,8 @@ namespace Trips.DAL.Infrastructure
         {
             builder.Services.AddDbContext<TripContext>(options =>
             {
-                var connection = builder.Configuration.GetConnectionString("postgres");
+                var connection = builder.Configuration.GetConnectionString("postgres") ?? throw new InvalidOperationException("Connection string 'Homework_TripsContextConnection' not found.");
+
                 options.UseNpgsql(connection, b =>
                 {
                     b.MigrationsAssembly("Homework-Trips");
@@ -39,6 +40,16 @@ namespace Trips.DAL.Infrastructure
 			});
 
             return builder;
+        }
+
+        public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+        {
+	        builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+		        .AddEntityFrameworkStores<TripContext>()
+		        .AddDefaultTokenProviders();
+
+
+	        return builder;
         }
 
 
@@ -73,7 +84,8 @@ namespace Trips.DAL.Infrastructure
         public static WebApplicationBuilder AddValidators(this WebApplicationBuilder builder)
         {
 	        builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-            
+            ValidatorOptions.Global.LanguageManager.Enabled = false;
+
 	        return builder;
         }
         public static WebApplicationBuilder AddSeeder(this WebApplicationBuilder builder)

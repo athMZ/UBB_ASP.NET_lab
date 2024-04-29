@@ -12,7 +12,7 @@ namespace Trips.DAL.Validators
 				.MaximumLength(50).WithMessage("Name cannot be longer than 50 characters.");
 
 			RuleFor(x => x.Description)
-				.MaximumLength(200).WithMessage("Description cannot be longer than 200 characters.");
+				.MaximumLength(600).WithMessage("Description cannot be longer than 600 characters.");
 
 			RuleFor(x => x.StartDate)
 				.NotEmpty().WithMessage("Start Date is required.")

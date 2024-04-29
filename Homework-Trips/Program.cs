@@ -7,6 +7,9 @@ using Trips.DAL.Infrastructure;
 //TODO: Add File Service to save images//https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
 //https://stackoverflow.com/questions/40629947/receive-file-and-other-form-data-together-in-asp-net-core-web-api-boundary-base
 
+//TODO: Scaffold Identity using postgresql
+//TODO: Change DB context to use Identity
+
 namespace Homework_Trips
 {
 	public class Program
@@ -14,9 +17,6 @@ namespace Homework_Trips
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
 
 			builder
 				//.AddDbContext()
@@ -27,6 +27,9 @@ namespace Homework_Trips
 				.AddSeeder()
 				.AddValidators()
 				.AddAutoMapper();
+
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
 
@@ -54,6 +57,8 @@ namespace Homework_Trips
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
+
+			//TODO: Map Razor Pages
 
 			app.Run();
 		}
