@@ -70,6 +70,16 @@ namespace Trips.DAL.Infrastructure
 			return builder;
 		}
 
+		public static WebApplicationBuilder AddAuthorization(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+				options.AddPolicy("User", policy => policy.RequireRole("User"));
+			});
+			return builder;
+		}
+
 		public static WebApplicationBuilder AddValidators(this WebApplicationBuilder builder)
 		{
 			builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());

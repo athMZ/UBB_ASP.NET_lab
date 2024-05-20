@@ -16,9 +16,8 @@ namespace Homework_Trips
 			var builder = WebApplication.CreateBuilder(args);
 
 			builder
-				//.AddDbContext()
-				.AddInMemoryDbContext()
-				//.AddIdentity()
+				 .AddDbContext()
+				//.AddInMemoryDbContext()
 				.AddRepositories()
 				.AddServices()
 				.AddLogger()
@@ -29,6 +28,7 @@ namespace Homework_Trips
 			// Add Identity to the container - can't move to an extension method
 			builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddDefaultUI()
+				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<TripContext>()
 				.AddDefaultTokenProviders();
 
@@ -52,6 +52,13 @@ namespace Homework_Trips
 			{
 				var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
 				seeder.Seed();
+
+				var startup = new Startup(app.Configuration);
+
+				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+				var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+				startup.Configure(roleManager, userManager);
 			}
 
 			app.UseHttpsRedirection();
@@ -59,6 +66,7 @@ namespace Homework_Trips
 
 			app.UseRouting();
 
+			app.UseAuthorization();
 			app.UseAuthorization();
 
 			app.MapControllerRoute(

@@ -7,8 +7,7 @@ namespace Trips.DAL.Data
 {
 	public class TripContext : IdentityDbContext<IdentityUser>
 	{
-		public TripContext(DbContextOptions<TripContext> options)
-			: base(options)
+		public TripContext(DbContextOptions<TripContext> options): base(options)
 		{
 		}
 

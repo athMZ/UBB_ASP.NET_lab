@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -22,6 +22,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Cities
+		[AllowAnonymous]
 		public async Task<IActionResult> Index()
 		{
 			var result = _cityService.GetAll();
@@ -29,6 +30,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Cities/Details/5
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null)
@@ -39,6 +41,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Cities/Create
+		[Authorize(Roles = "Admin")]
 		public IActionResult Create()
 		{
 			SetCountriesViewBag();
@@ -50,6 +53,7 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Create(CityDto cityDto)
 		{
 			var result = await _cityValidator.ValidateAsync(cityDto);
@@ -68,6 +72,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Cities/Edit/5
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
@@ -84,6 +89,7 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Edit(int id, CityDto cityDto)
 		{
 			if (id != cityDto.Id)
@@ -112,6 +118,8 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Cities/Delete/5
+		[Authorize(Roles = "Admin")]
+
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null)
@@ -125,6 +133,8 @@ namespace Homework_Trips.Controllers
 		// POST: Cities/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
+
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			_cityService.Delete(id);
