@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
 	public class CityService : ICityService
 	{
-		private readonly IRepository<City> _cityRepository;
+		private readonly IRepository<City, int> _cityRepository;
 		private readonly ILogger _logger;
 		private readonly IMapper _mapper;
 
-		public CityService(IRepository<City> cityRepository, ILogger logger, IMapper mapper)
+		public CityService(IRepository<City, int> cityRepository, ILogger logger, IMapper mapper)
 		{
 			_cityRepository = cityRepository;
 			_logger = logger;

@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
     public class ReservationService : IReservationService
     {
-        private readonly IRepository<Reservation> _reservationRepository;
+        private readonly IRepository<Reservation, int> _reservationRepository;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
-        public ReservationService(IRepository<Reservation> reservationRepository, ILogger logger, IMapper mapper)
+        public ReservationService(IRepository<Reservation, int> reservationRepository, ILogger logger, IMapper mapper)
         {
             _reservationRepository = reservationRepository;
             _logger = logger;

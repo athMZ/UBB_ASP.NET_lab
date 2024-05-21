@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
 	public class PointOfIntrestService : IPointOfIntrestService
 	{
-		private readonly IRepository<PointOfIntrest> _pointOfInterestRepository;
+		private readonly IRepository<PointOfIntrest, int> _pointOfInterestRepository;
 		private readonly ILogger _logger;
 		private readonly IMapper _mapper;
 
-		public PointOfIntrestService(IRepository<PointOfIntrest> pointOfInterestRepository, ILogger logger, IMapper mapper)
+		public PointOfIntrestService(IRepository<PointOfIntrest, int> pointOfInterestRepository, ILogger logger, IMapper mapper)
 		{
 			_pointOfInterestRepository = pointOfInterestRepository;
 			_logger = logger;

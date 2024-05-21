@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
 	public class CustomerService : ICustomerService
 	{
-		private readonly IRepository<Customer> _customerRepository;
+		private readonly IRepository<Customer, string> _customerRepository;
 		private readonly ILogger _logger;
 		private readonly IMapper _mapper;
 
-		public CustomerService(IRepository<Customer> customerRepository, ILogger logger, IMapper mapper)
+		public CustomerService(IRepository<Customer, string> customerRepository, ILogger logger, IMapper mapper)
 		{
 			_customerRepository = customerRepository;
 			_logger = logger;
@@ -26,19 +26,19 @@ namespace Trips.DAL.Services
 			return result;
 		}
 
-		public CustomerDto GetById(int id)
+		public CustomerDto GetById(string id)
 		{
 			var customer = _customerRepository.GetById(id);
 			var result = _mapper.Map<CustomerDto>(customer);
 			return result;
 		}
 
-		public bool Exists(int id)
+		public bool Exists(string id)
 		{
 			return _customerRepository.Exists(id);
 		}
 
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			_customerRepository.Delete(id);
 			_customerRepository.Save();

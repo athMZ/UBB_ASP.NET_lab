@@ -7,10 +7,10 @@ namespace Trips.DAL.Services
 {
 	public class TripService : ITripService
 	{
-		private readonly IRepository<Trip> _tripRepository;
+		private readonly IRepository<Trip, int> _tripRepository;
 		private readonly IMapper _mapper;
 
-		public TripService(IRepository<Trip> tripRepository, IMapper mapper)
+		public TripService(IRepository<Trip, int> tripRepository, IMapper mapper)
 		{
 			_tripRepository = tripRepository;
 			_mapper = mapper;

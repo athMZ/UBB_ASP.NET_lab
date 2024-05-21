@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
 	public class CountryService : ICountryService
 	{
-		private readonly IRepository<Country> _countryRepository;
+		private readonly IRepository<Country, int> _countryRepository;
 		private readonly ILogger _logger;
 		private readonly IMapper _mapper;
 
-		public CountryService(IRepository<Country> countryRepository, ILogger logger, IMapper mapper)
+		public CountryService(IRepository<Country, int> countryRepository, ILogger logger, IMapper mapper)
 		{
 			_countryRepository = countryRepository;
 			_logger = logger;

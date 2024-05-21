@@ -8,11 +8,11 @@ namespace Trips.DAL.Services
 {
 	public class PhotoService : IPhotoService
 	{
-		private readonly IRepository<Photo> _photoRepository;
+		private readonly IRepository<Photo, int> _photoRepository;
 		private readonly ILogger _logger;
 		private readonly IMapper _mapper;
 
-		public PhotoService(IRepository<Photo> photoRepository, ILogger logger, IMapper mapper)
+		public PhotoService(IRepository<Photo, int> photoRepository, ILogger logger, IMapper mapper)
 		{
 			_photoRepository = photoRepository;
 			_logger = logger;
