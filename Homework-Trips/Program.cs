@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Trips.DAL.Data;
 using Trips.DAL.Interfaces;
 using Trips.DAL.Infrastructure;
+using Trips.DAL.Models;
 
 //TODO: Add File Controller to upload and images
 //TODO: Add File Service to save images//https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
@@ -16,8 +17,8 @@ namespace Homework_Trips
 			var builder = WebApplication.CreateBuilder(args);
 
 			builder
-				 .AddDbContext()
-				//.AddInMemoryDbContext()
+				//.AddDbContext()
+				.AddInMemoryDbContext()
 				.AddRepositories()
 				.AddServices()
 				.AddLogger()
@@ -26,7 +27,7 @@ namespace Homework_Trips
 				.AddAutoMapper();
 
 			// Add Identity to the container - can't move to an extension method
-			builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			builder.Services.AddIdentity<Customer, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddDefaultUI()
 				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<TripContext>()
@@ -56,7 +57,7 @@ namespace Homework_Trips
 				var startup = new Startup(app.Configuration);
 
 				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-				var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+				var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Customer>>();
 
 				startup.Configure(roleManager, userManager);
 			}

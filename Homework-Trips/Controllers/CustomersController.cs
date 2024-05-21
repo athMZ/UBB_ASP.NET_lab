@@ -26,12 +26,12 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
 	            return NotFound();
 
-            var customer = _customerService.GetById(id.Value);
+            var customer = _customerService.GetById(id);
             return View(customer);
         }
 
@@ -62,12 +62,12 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
 	            return NotFound();
 
-            var result = _customerService.GetById(id.Value);
+            var result = _customerService.GetById(id);
 
             return View(result);
         }
@@ -77,7 +77,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] CustomerDto customerDto)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Email")] CustomerDto customerDto)
         {
             if (id != customerDto.Id)
 	            return NotFound();
@@ -107,12 +107,12 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
 	            return NotFound();
 
-            var result = _customerService.GetById(id.Value);
+            var result = _customerService.GetById(id);
 
             return View(result);
         }
@@ -120,13 +120,13 @@ namespace Homework_Trips.Controllers
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             _customerService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool CustomerExists(string id)
         {
 	        return _customerService.Exists(id);
         }

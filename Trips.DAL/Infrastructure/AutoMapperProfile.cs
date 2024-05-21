@@ -61,7 +61,7 @@ namespace Trips.DAL.Infrastructure
                                 Trip = null,
                                 Customer = null,
                                 TripId = 0,
-                                CustomerId = 0
+                                CustomerId = ""
                             })
                         )
                     );

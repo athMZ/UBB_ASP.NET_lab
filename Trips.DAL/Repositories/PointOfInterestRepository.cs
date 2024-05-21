@@ -5,7 +5,7 @@ using Trips.DAL.Models;
 
 namespace Trips.DAL.Repositories
 {
-	public class PointOfInterestRepository : ARepository<PointOfIntrest>
+	public class PointOfInterestRepository : ARepository<PointOfIntrest, int>
 	{
 		public PointOfInterestRepository(TripContext context, IMapper mapper) : base(context, mapper)
 		{

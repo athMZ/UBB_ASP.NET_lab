@@ -4,7 +4,7 @@ using Trips.DAL.Interfaces;
 
 namespace Trips.DAL.Repositories
 {
-	public abstract class ARepository<TEntity> : IRepository<TEntity> where TEntity : class
+	public abstract class ARepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
 	{
 		protected readonly TripContext Context;
 		protected readonly IMapper Mapper;
@@ -17,17 +17,17 @@ namespace Trips.DAL.Repositories
 
 		public abstract IQueryable<TEntity> GetAll();
 
-		public abstract TEntity? GetById(int id);
+		public abstract TEntity? GetById(TKey id);
 
 		public abstract void Insert(TEntity entity);
 
 		public abstract void Update(TEntity entity);
 
-		public abstract void Delete(int id);
+		public abstract void Delete(TKey id);
 
 		public abstract void Delete(TEntity entity);
 
-		public abstract bool Exists(int id);
+		public abstract bool Exists(TKey id);
 
 		public abstract bool Exists(TEntity entity);
 

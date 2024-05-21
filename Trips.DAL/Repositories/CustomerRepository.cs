@@ -5,7 +5,7 @@ using Trips.DAL.Models;
 
 namespace Trips.DAL.Repositories
 {
-	public class CustomerRepository : ARepository<Customer>
+	public class CustomerRepository : ARepository<Customer, string>
 	{
 		public CustomerRepository(TripContext context, IMapper mapper) : base(context, mapper)
 		{
@@ -18,7 +18,7 @@ namespace Trips.DAL.Repositories
 				.Include(customer => customer.Reservations);
 		}
 
-		public override Customer? GetById(int id)
+		public override Customer? GetById(string id)
 		{
 			var result = Context.Customers
 				.AsNoTracking()
@@ -53,7 +53,7 @@ namespace Trips.DAL.Repositories
 			customer.Email = entity.Email;
 		}
 
-		public override void Delete(int id)
+		public override void Delete(string id)
 		{
 			var customer = GetById(id);
 
@@ -69,7 +69,7 @@ namespace Trips.DAL.Repositories
 			Delete(entity.Id);
 		}
 
-		public override bool Exists(int id) => Context.Customers.Any(c => c.Id == id);
+		public override bool Exists(string id) => Context.Customers.Any(c => c.Id == id);
 
 		public override bool Exists(Customer entity)
 		{

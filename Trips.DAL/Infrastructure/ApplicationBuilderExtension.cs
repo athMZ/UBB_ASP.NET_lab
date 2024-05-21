@@ -45,13 +45,13 @@ namespace Trips.DAL.Infrastructure
 		public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
 		{
 			builder.Services
-				.AddScoped<IRepository<City>, CityRepository>()
-				.AddScoped<IRepository<Country>, CountryRepository>()
-				.AddScoped<IRepository<Customer>, CustomerRepository>()
-				.AddScoped<IRepository<Photo>, PhotoRepository>()
-				.AddScoped<IRepository<PointOfIntrest>, PointOfInterestRepository>()
-				.AddScoped<IRepository<Reservation>, ReservationRepository>()
-				.AddScoped<IRepository<Trip>, TripRepository>();
+				.AddScoped<IRepository<City, int>, CityRepository>()
+				.AddScoped<IRepository<Country, int>, CountryRepository>()
+				.AddScoped<IRepository<Customer, string>, CustomerRepository>()
+				.AddScoped<IRepository<Photo, int>, PhotoRepository>()
+				.AddScoped<IRepository<PointOfIntrest, int>, PointOfInterestRepository>()
+				.AddScoped<IRepository<Reservation, int>, ReservationRepository>()
+				.AddScoped<IRepository<Trip, int>, TripRepository>();
 			return builder;
 		}
 

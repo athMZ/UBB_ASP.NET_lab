@@ -5,7 +5,7 @@ using Trips.DAL.Models;
 
 namespace Trips.DAL.Repositories
 {
-	public class CityRepository : ARepository<City>
+	public class CityRepository : ARepository<City, int>
 	{
 		public CityRepository(TripContext context, IMapper mapper) : base(context, mapper) { }
 

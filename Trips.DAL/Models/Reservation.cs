@@ -16,7 +16,7 @@ namespace Trips.DAL.Models
         public int TripId { get; set; }
 
 		[ForeignKey("CustomerId")]
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 
 }

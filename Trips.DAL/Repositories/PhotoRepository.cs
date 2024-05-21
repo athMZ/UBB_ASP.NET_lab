@@ -5,7 +5,7 @@ using Trips.DAL.Models;
 
 namespace Trips.DAL.Repositories
 {
-	public class PhotoRepository : ARepository<Photo>
+	public class PhotoRepository : ARepository<Photo, int>
 	{
 		public PhotoRepository(TripContext context, IMapper mapper) : base(context, mapper)
 		{
