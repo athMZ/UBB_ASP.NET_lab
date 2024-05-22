@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Security.Claims;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,13 +24,16 @@ namespace Homework_Trips.Controllers
             _reservationValidator = reservationValidator;
         }
 
-        // GET: Reservations
-        [AllowAnonymous]
-        public async Task<IActionResult> Index()
-        {
-            var result = _reservationService.GetAll();
-            return View(result);
-        }
+		// GET: Reservations
+		[Authorize(Roles = "User")]
+		public async Task<IActionResult> Index()
+		{
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+			if (string.IsNullOrEmpty(userId)) return View();
+
+			var result = _reservationService.GetReservationsForUser(userId);
+			return View(result);
+		}
 
         // GET: Reservations/Details/5
         [AllowAnonymous]
@@ -58,11 +62,14 @@ namespace Homework_Trips.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> Create(ReservationDto reservationDto)
         {
+            reservationDto.CustomerId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            reservationDto.Confirmed = false;
 	        var result = await _reservationValidator.ValidateAsync(reservationDto);
 
-            if (!ModelState.IsValid || !result.IsValid)
+            if (!result.IsValid)
             {
                 result.AddToModelState(ModelState);
+                SetViewBag();
 	            return View(reservationDto);
             }
 
@@ -148,7 +155,6 @@ namespace Homework_Trips.Controllers
         private void SetViewBag()
         {
             ViewBag.TripList = _tripService.GetAll();
-            ViewBag.CustomerList = _customerService.GetAll();
         }
     }
 }

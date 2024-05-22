@@ -26,6 +26,13 @@ namespace Trips.DAL.Services
             return result;
         }
 
+        public IEnumerable<ReservationDto> GetReservationsForUser(string customerId)
+        {
+			var reservations = _reservationRepository.GetAll().Where(r => r.CustomerId == customerId);
+			var result = _mapper.Map<IEnumerable<ReservationDto>>(reservations);
+			return result;
+		}
+        
         public ReservationDto GetById(int id)
         {
             var reservation = _reservationRepository.GetById(id);

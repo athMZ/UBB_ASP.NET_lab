@@ -4,18 +4,18 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Zarezerwuj wycieczkę</h1>
 
-<h4>Reservation</h4>
+<h4>Rezerwacje</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Confirmed" class="control-label"></label>
-                <input asp-for="Confirmed" class="form-control" />
-                <span asp-validation-for="Confirmed" class="text-danger"></span>
+	            @Html.DropDownListFor(model => model.TripId,
+                         new SelectList(ViewBag.TripList, "Id", "Name"),
+		            "Wybierz wycieczkę")
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
