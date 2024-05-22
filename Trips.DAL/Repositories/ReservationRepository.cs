@@ -30,23 +30,8 @@ namespace Trips.DAL.Repositories
 
         public override void Insert(Reservation entity)
         {
-/*            ArgumentNullException.ThrowIfNull(entity);
-
-            if (Context.Reservations.Any(c => c.Id == entity.Id))
-                throw new InvalidOperationException("Reservation with the same ID already exists.");
-
-            var customer = Context.Customers.SingleOrDefault(c => c.Id == entity.Customer.Id);
-            if (customer == null)
-                throw new InvalidOperationException("Customer not found.");
-
-            var trip = Context.Trips.SingleOrDefault(c => c.Id == entity.Customer.Id);
-            if (trip == null)
-                throw new InvalidOperationException("Trip not found.");
-
-            entity.CustomerId = customer.Id;
-            entity.TripId = customer.Id;
-
-            Context.Reservations.Add(entity);*/
+            ArgumentNullException.ThrowIfNull(entity);
+            Context.Reservations.Add(entity);
         }
 
         public override void Update(Reservation entity)

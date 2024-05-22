@@ -119,7 +119,7 @@ public class Startup
 			UserName = userEmail,
 			Email = userEmail,
 			FirstName = "Jan",
-			LastName = "Kowalski",
+			LastName = "Userowy",
 			EmailConfirmed = true
 		};
 

@@ -37,7 +37,9 @@ namespace Trips.DAL.Infrastructure
             ); ;
             CreateMap<PointOfIntrestDto, PointOfIntrest>();
 
-            CreateMap<Reservation, ReservationDto>();
+            CreateMap<Reservation, ReservationDto>()
+	            .ForMember(dest=>dest.TripName,
+		            opt => opt.MapFrom(src=>src.Trip.Name));
             CreateMap<ReservationDto, Reservation>();
 
             CreateMap<Trip, TripDto>()
