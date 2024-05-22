@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<Trips.DAL.DTOs.CountryDto>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Kraje";
 }
 
-<h1>Index</h1>
+<h1>Kraje</h1>
 
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+	<p>
+		<a asp-action="Create">Dodaj</a>
+	</p>
+}
+
 <table class="table">
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Name)
+				Kraj
 			</th>
 			<th></th>
 		</tr>
@@ -26,9 +30,16 @@
 					@Html.DisplayFor(modelItem => item.Name)
 				</td>
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					<a asp-action="Details" asp-route-id="@item.Id">Zobacz więcej</a>
+	            
+					@if (User.IsInRole("Admin"))
+					{
+						<span>
+							|
+							<a asp-action="Edit" asp-route-id="@item.Id">Edycja</a> |
+							<a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+						</span>
+					}
 				</td>
 			</tr>
 		}

@@ -1,17 +1,17 @@
 ﻿@model Trips.DAL.DTOs.CityDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj miasto";
 }
 
-<h1>Create</h1>
+<h1>Dodaj</h1>
 
-<h4>City</h4>
+<h4>Miasto</h4>
 <hr />
 <div class="row">
 	<div class="col-md-4">
 		
-		<a asp-controller="Countries" asp-action="Create">Add a country</a>
+		<a asp-controller="Countries" asp-action="Create">Dodaj kraj</a>
 
 		<form asp-action="Create">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,14 +31,14 @@
 					"Select a Country")
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary"/>
+				<input type="submit" value="Dodaj" class="btn btn-primary"/>
 			</div>
 		</form>
 	</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Powrót</a>
 </div>
 
 @section Scripts {
