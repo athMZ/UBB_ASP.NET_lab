@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Trips.DAL.Models
+@inject UserManager<Customer> UserManager
+
+@{
+	var user = await UserManager.GetUserAsync(User);
+	var isAdmin = user is not null && await UserManager.IsInRoleAsync(user, "Admin");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,7 +24,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light p-3 border-bottom shadow-sm">
 			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
 				<img src="~/Resources/ubb-logo.png" alt="UBB Logo" width="30" height="30"
-					 class="d-inline-block align-top">
+      class="d-inline-block align-top">
 				Wycieczki
 			</a>
 
@@ -26,6 +35,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
+
 					<li class="nav-item">
 						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Strona Główna</a>
 					</li>
@@ -35,18 +45,24 @@
 					<li class="nav-item">
 						<a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">Kraje</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Klienci</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Photos" asp-action="Index">Zdjęcia</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="PointsOfIntrest" asp-action="Index">Atrakcje</a>
-					</li>
+
 					<li class="nav-item">
 						<a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">Wycieczki</a>
 					</li>
+					
+					@if(isAdmin)
+					{
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Klienci</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Photos" asp-action="Index">Zdjęcia</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="PointsOfIntrest" asp-action="Index">Atrakcje</a>
+						</li>
+					}
+
 				</ul>
 			</div>
 			<partial name="_LoginPartial" />
