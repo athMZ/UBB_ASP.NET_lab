@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -19,6 +20,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Trips
+		[AllowAnonymous]
 		public async Task<IActionResult> Index()
 		{
 			var result = _tripService.GetAll();
@@ -26,6 +28,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Trips/Details/5
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null)
@@ -38,6 +41,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Trips/Create
+		[Authorize(Roles = "Admin")]
 		public IActionResult Create()
 		{
 			return View();
@@ -48,6 +52,7 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Create(TripDto tripDto)
 		{
 			var result = await _tripValidator.ValidateAsync(tripDto);
@@ -63,6 +68,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Trips/Edit/5
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
@@ -79,6 +85,7 @@ namespace Homework_Trips.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Edit(int id, TripDto tripDto)
 		{
 			if (id != tripDto.Id)
@@ -111,6 +118,7 @@ namespace Homework_Trips.Controllers
 		}
 
 		// GET: Trips/Delete/5
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null)
@@ -126,6 +134,7 @@ namespace Homework_Trips.Controllers
 		// POST: Trips/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			_tripService.Delete(id);

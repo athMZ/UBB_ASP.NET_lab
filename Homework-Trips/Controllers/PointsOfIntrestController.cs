@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -21,6 +22,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: PointOfIntrests
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
 	        var result = _pointOfIntrestService.GetAll();
@@ -28,6 +30,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: PointOfIntrests/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
 	        if (id == null)
@@ -38,6 +41,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: PointOfIntrests/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             SetCitiesViewBag();
@@ -49,6 +53,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(PointOfIntrestDto pointOfIntrestDto)
         {
             var result = await _pointOfIntrestValidator.ValidateAsync(pointOfIntrestDto);
@@ -66,6 +71,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: PointOfIntrests/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
 	        if (id == null)
@@ -82,6 +88,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, PointOfIntrestDto pointOfIntrestDto)
         {
 	        if (id != pointOfIntrestDto.Id)
@@ -114,6 +121,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: PointOfIntrests/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
 	        if (id == null)
@@ -127,6 +135,7 @@ namespace Homework_Trips.Controllers
         // POST: PointOfIntrests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
 	        _pointOfIntrestService.Delete(id);

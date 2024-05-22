@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -23,6 +24,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Reservations
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var result = _reservationService.GetAll();
@@ -30,6 +32,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Reservations/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,6 +43,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Reservations/Create
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {
             SetViewBag();
@@ -51,6 +55,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create(ReservationDto reservationDto)
         {
 	        var result = await _reservationValidator.ValidateAsync(reservationDto);
@@ -67,6 +72,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +89,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Edit(int id, ReservationDto reservationDto)
         {
             if (id != reservationDto.Id)
@@ -112,6 +119,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Reservations/Delete/5
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,6 +133,7 @@ namespace Homework_Trips.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             _reservationService.Delete(id);

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -19,6 +20,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Countries
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
 	        var result = _countryService.GetAll();
@@ -26,6 +28,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Countries/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Countries/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -47,6 +51,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name")] CountryDto countryDto)
         {
 
@@ -65,6 +70,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Countries/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,6 +86,7 @@ namespace Homework_Trips.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CountryDto countryDto)
         {
             if (id != countryDto.Id)
@@ -108,6 +115,7 @@ namespace Homework_Trips.Controllers
         }
 
         // GET: Countries/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -121,6 +129,7 @@ namespace Homework_Trips.Controllers
         // POST: Countries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
 	        _countryService.Delete(id);

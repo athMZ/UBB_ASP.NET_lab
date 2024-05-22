@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.DAL.DTOs;
@@ -7,6 +8,7 @@ using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class PhotosController : Controller
 	{
 		private readonly IPhotoService _photoService;

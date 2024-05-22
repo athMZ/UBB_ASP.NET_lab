@@ -2,10 +2,12 @@ using Homework_Trips.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Homework_Trips.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Trips.DAL.Interfaces;
 
 namespace Homework_Trips.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly IMainPageService _mainPageService;

@@ -50,6 +50,11 @@
 						<a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">Wycieczki</a>
 					</li>
 					
+					@if (user is not null && !isAdmin)
+					{
+						<a class="nav-link" asp-area="" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
+					}
+
 					@if(isAdmin)
 					{
 						<li class="nav-item">
