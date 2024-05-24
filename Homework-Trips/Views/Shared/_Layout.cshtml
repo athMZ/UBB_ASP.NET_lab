@@ -18,86 +18,50 @@
 	<link rel="stylesheet" href="~/css/sb-admin-2.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	@* <link rel="stylesheet" href="~/Homework_Trips.styles.css" asp-append-version="true" />*@
-	
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" /
 
 </head>
 
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light p-3 border-bottom shadow-sm">
-			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-				<img src="~/Resources/ubb-logo.png" alt="UBB Logo" width="30" height="30"
-					 class="d-inline-block align-top">
-				Wycieczki
-			</a>
-
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-
-					@* TODO change later *@
-					@* @if (isAdmin) *@
-					@if (true)
-					{
-						<li class="nav-item">
-							<a class="nav-link btn btn-outline-primary" asp-area="" asp-controller="Admin" asp-action="Index">Admin Panel</a>
-						</li>
-					}
-
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Strona Główna</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">Miasta</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">Kraje</a>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">Wycieczki</a>
-					</li>
-
-					@if (user is not null && !isAdmin)
-					{
-						<a class="nav-link" asp-area="" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
-					}
-
-					@if (isAdmin)
-					{
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Klienci</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Photos" asp-action="Index">Zdjęcia</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="PointsOfIntrest" asp-action="Index">Atrakcje</a>
-						</li>
-					}
-
-				</ul>
-			</div>
-			<partial name="_LoginPartial" />
-		</nav>
+		@if (!isAdmin)
+		{
+			<partial name="_DefaultNavbarPartial" />
+		}
 	</header>
 
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
+	<main role="main" class="vh-100">
+		<div id="wrapper">
 
-	<footer class="border-top footer text-muted">
-		<div class="container d-flex justify-content-center mt-4">
-			&copy; 2024 - Homework_Trips
+			@if (isAdmin)
+			{
+				<partial name="_AdminSidebarPartial" />
+			}
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+
+				<!-- Main Content -->
+				<div id="content">
+					<div class="container-fluid pt-4 pb-4">
+						@RenderBody()
+					</div>
+				</div>
+			</div>
 		</div>
-	</footer>
+	</main>
+
+	@if (!isAdmin)
+	{
+		<footer class="border-top footer text-muted">
+			<div class="text-center pt-4">
+				&copy; 2024 - Homework_Trips
+			</div>
+		</footer>
+	}
+	
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

@@ -14,7 +14,7 @@ namespace TripsTests
 	        var model = new ReservationDto
 	        {
 		        TripId = 0,
-		        CustomerId = 0,
+		        CustomerId = "",
 		        Confirmed = null
 	        };
             var result = _validator.TestValidate(model);
@@ -27,7 +27,7 @@ namespace TripsTests
 	        var model = new ReservationDto
 	        {
 		        TripId = 0,
-		        CustomerId = 0,
+		        CustomerId = "",
 		        Confirmed = null
 	        };
             var result = _validator.TestValidate(model);
@@ -41,7 +41,7 @@ namespace TripsTests
             {
 	            Confirmed = null,
 	            TripId = 0,
-	            CustomerId = 0
+	            CustomerId = ""
             };
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.Confirmed);
@@ -50,7 +50,7 @@ namespace TripsTests
         [Fact]
         public void Should_Not_Have_Error_When_All_Fields_Are_Valid()
         {
-            var model = new ReservationDto { CustomerId = 1, TripId = 1, Confirmed = true };
+            var model = new ReservationDto { CustomerId = "1", TripId = 1, Confirmed = true };
             var result = _validator.TestValidate(model);
             result.ShouldNotHaveAnyValidationErrors();
         }

@@ -10,73 +10,73 @@ using Trips.DAL.Models;
 
 namespace Homework_Trips
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            builder
-                .AddDbContext()
-                //.AddInMemoryDbContext()
-                .AddRepositories()
-                .AddServices()
-                .AddLogger()
-                .AddSeeder()
-                .AddValidators()
-                .AddAutoMapper();
+			builder
+				//.AddDbContext()
+				.AddInMemoryDbContext()
+				.AddRepositories()
+				.AddServices()
+				.AddLogger()
+				.AddSeeder()
+				.AddValidators()
+				.AddAutoMapper();
 
-            // Add Identity to the container - can't move to an extension method
-            builder.Services.AddIdentity<Customer, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddDefaultUI()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<TripContext>()
-                .AddDefaultTokenProviders();
+			// Add Identity to the container - can't move to an extension method
+			builder.Services.AddIdentity<Customer, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+				.AddDefaultUI()
+				.AddRoles<IdentityRole>()
+				.AddEntityFrameworkStores<TripContext>()
+				.AddDefaultTokenProviders();
 
-            //Add Razor Pages to the container
-            builder.Services.AddRazorPages();
+			//Add Razor Pages to the container
+			builder.Services.AddRazorPages();
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+				app.UseHsts();
+			}
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
-                seeder.Seed();
+			using (var scope = app.Services.CreateScope())
+			{
+				var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
+				seeder.Seed();
 
-                var startup = new Startup(app.Configuration);
+				var startup = new Startup(app.Configuration);
 
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Customer>>();
+				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+				var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Customer>>();
 
-                startup.Configure(roleManager, userManager);
-            }
+				startup.Configure(roleManager, userManager);
+			}
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
 
-            app.UseRouting();
+			app.UseRouting();
 
-            app.UseAuthorization();
-            app.UseAuthorization();
+			app.UseAuthorization();
+			app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.MapRazorPages();
+			app.MapRazorPages();
 
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }

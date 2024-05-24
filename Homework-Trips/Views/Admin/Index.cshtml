@@ -1,0 +1,266 @@
+﻿@model Homework_Trips.ViewModels.AdminPanelViewModel
+
+@{
+	ViewBag.Title = "Panel Administratora";
+	Layout = "_Layout";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-3">
+	<h1 class="h3 mb-0 text-gray-800">Panel Administratora</h1>
+</div>
+
+<!-- Cards -->
+<div class="row">
+
+	<!-- Klienci Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-primary shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+							Zarejestrowani użytkownicy
+							<a asp-controller="Customers" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CustomersCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-users fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Wycieczki Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-success shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+							Wycieczki
+							<a asp-controller="Trips" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TripsCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fa-solid fa-briefcase fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Rezerwacje Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-info shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+							Rezerwacje
+							<a asp-controller="Reservations" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ReservationsCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-clipboard-list fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Miasta Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-warning shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+							Miasta w ofercie
+							<a asp-controller="Cities" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+					</div>
+					<div class="col-auto">
+						<i class="fa-solid fa-city fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<!-- Pie Chart -->
+	<div class="col-xl-4 col-lg-5">
+		<div class="card shadow mb-1 h-100">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">Kraje w ofercie</h6>
+			</div>
+			<!-- Card Body -->
+			<div class="card-body p-4">
+				<canvas id="CountriesPieChart"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<!-- Content Column -->
+	<div class="col-xl-8 col-lg-7">
+		<div class="card shadow mb-1 h-100">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Zestawienie rezerwacji</h6>
+			</div>
+			<div class="card-body">
+				@if (Model.DataForReservationBars is null)
+				{
+					<h2 class="text-danger">Data Error!</h2>
+				}
+				else
+				{
+					string[] colors = ["bg-danger", "bg-warning", "bg-info", "bg-success", "bg-primary", "bg-secondary", "bg-dark"];
+					const int maxRows = 5;
+
+					@for (var i = 0; i < int.Min(Model.DataForReservationBars.Count, maxRows); i++)
+					{
+						var reservationData = Model.DataForReservationBars.ElementAt(i);
+						var color = colors[i % colors.Length];
+
+						<h4 class="small font-weight-bold">
+							@reservationData.Key <span class="float-right">@(reservationData.Value)%</span>
+						</h4>
+						<div class="progress mb-4">
+							<div class="progress-bar @color" role="progressbar" style="width: @(reservationData.Value)%"
+								 aria-valuenow="@reservationData.Key" aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mt-4">
+
+	<!-- Content Column -->
+	<div class="col-lg-7">
+		<div class="card shadow mb-1 h-100">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Najbliższe wycieczki</h6>
+			</div>
+			<div class="card-body">
+				<table id="upcomingTripsTable" class="display">
+					<thead>
+					<tr>
+						<th>Nazwa wycieczki</th>
+						<th>Data rozpoczęcia</th>
+						<th>Data zakończenia</th>
+					</tr>
+					</thead>
+					<tbody>
+						
+						@foreach(var trip in Model.UpcomingTrips)
+						{
+							<tr>
+								<td>@trip.Name</td>
+								<td>@trip.StartDate</td>
+								<td>@trip.EndDate</td>
+							</tr>
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mixed Chart -->
+	<div class="col-lg-5">
+		<div class="card shadow mb-1 h-100">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">Zestawienie cen wycieczek</h6>
+			</div>
+			<!-- Card Body -->
+			<div class="card-body p-4">
+				<canvas id="PricesMixedChart"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+
+	<script>
+
+		$(document).ready(function () {
+			$('#upcomingTripsTable').DataTable({
+				layout: {
+					topStart: null,
+					topEnd: null,
+					bottomStart: null,
+					bottomEnd: null
+				}
+			});
+		});
+
+		const doughnutData = {
+			labels: @Html.Raw(Model.SerializedDataForCountryChart?.Item1),
+			datasets: [{
+				label: 'Wycieczki w ofercie',
+				data: @Html.Raw(Model.SerializedDataForCountryChart?.Item2),
+				cutout: "30%",
+				animation: {
+					animateScale: true
+				},
+				hoverOffset: 20
+			}]
+		};
+
+		const doughnutConfig = {
+			type: 'doughnut',
+			data: doughnutData,
+		};
+
+		new Chart("CountriesPieChart", doughnutConfig);
+
+		const data = {
+			labels: @Html.Raw(Model.SerializedDataForPriceChart?.Item1),
+			datasets: [{
+				type: 'bar',
+				label: 'Cena wycieczki (PLN)',
+				data: @Html.Raw(Model.SerializedDataForPriceChart?.Item2),
+				backgroundColor: 'rgb(75, 192, 192, 0.75)',
+				order: 2
+			}, {
+				type: 'line',
+				label: 'Średnia cena wycieczki (PLN)',
+				data: @Html.Raw(Model.SerializedAveragePrice),
+				fill: false,
+				borderColor: '#9966ff',
+				order: 1
+			}]
+		};
+
+		const config = {
+			type: 'scatter',
+			data: data,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		};
+
+		new Chart("PricesMixedChart", config);
+
+	</script>
+}
